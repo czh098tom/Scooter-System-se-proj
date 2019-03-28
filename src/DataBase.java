@@ -11,10 +11,6 @@ public class DataBase {
     public DataBase getCurrent() {
     	if(_current==null) {
     		_current=new DataBase();
-    		
-    		
-    		
-    		
     	}
     	return _current;
     }
