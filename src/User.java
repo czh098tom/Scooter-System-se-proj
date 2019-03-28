@@ -44,4 +44,8 @@ public class User{
     public static boolean checkEmail(String s){
         return EMAIL_PAT.matcher(s).find();
     }
+    public static void main(String[] args) {
+//    	System.out.println(User.checkEmail("@1.1com"));
+    	System.out.println(User.checkQMID("aaaaaaaaa"));
+    }
 }
