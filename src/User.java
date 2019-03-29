@@ -58,6 +58,7 @@ public class User{
     	System.out.println(User.checkQMID("12345678"));//false
     	if(User.checkEmail("")&&User.checkQMID("")) {
     		//add to database
+    		//
     	}
     }
 }
