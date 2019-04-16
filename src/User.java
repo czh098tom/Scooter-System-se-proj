@@ -1,12 +1,11 @@
-import java.beans.XMLEncoder;
-import java.io.FileOutputStream;
 import java.util.regex.Pattern;
+import java.beans.*;
 
 public class User{
 
     private static final Pattern QMID_PAT=Pattern.compile("^\\d{9}$");
     private static final Pattern EMAIL_PAT=Pattern.compile("^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\\.[a-zA-Z0-9_-]+)+$");
-
+    
     private String id;
     private String name;
     private String email;
@@ -28,6 +27,10 @@ public class User{
     public void setEmail(String email){
         this.email=email;
     }
+    
+    public void setID(String id){
+    	//Cannot be called
+    }
 
     public String getID(){
         return id;
@@ -35,7 +38,6 @@ public class User{
 
     public String getName(){
         return name;
-        /*qqqqqqqqq*/
     }
 
     public String getEmail(){
@@ -63,7 +65,7 @@ public class User{
     	System.out.println(User.checkQMID("12345678"));//false
     	
     	if(User.checkEmail("1@2.3")&&User.checkQMID("123456789")) {
-    		//DataBase.getNew().regUser(new User("123456789","aaa","1@2.3"));
+    		DataBase.getNew().regUser(new User("123456789","aaa","1@2.3"));
     		DataBase.getCurrent().writeToFile();
     	}
     }

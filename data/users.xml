@@ -3,6 +3,9 @@
  <object class="java.util.ArrayList">
   <void method="add">
    <object class="User">
+    <void property="ID">
+     <string>123456789</string>
+    </void>
     <void property="email">
      <string>1@2.3</string>
     </void>
