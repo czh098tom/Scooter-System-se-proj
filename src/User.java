@@ -45,6 +45,7 @@ public class User{
     public static boolean checkQMID(String s){
         return QMID_PAT.matcher(s).find();
     }
+    //lalala
 
     public static boolean checkEmail(String s){
         return EMAIL_PAT.matcher(s).find();
