@@ -1,3 +1,5 @@
+import java.beans.XMLEncoder;
+import java.io.FileOutputStream;
 import java.util.regex.Pattern;
 
 public class User{
@@ -10,6 +12,8 @@ public class User{
     private String email;
 
     //private Scooter taking;
+    
+    public User() {}
     
     public User(String id,String name,String email) {
     	this.id=id;
@@ -56,9 +60,10 @@ public class User{
     	System.out.println(User.checkQMID("1234567890"));//false
     	System.out.println(User.checkQMID("abcdefghi"));//false
     	System.out.println(User.checkQMID("12345678"));//false
-    	if(User.checkEmail("")&&User.checkQMID("")) {
-    		//add to database
-    		//
+    	
+    	if(User.checkEmail("1@2.3")&&User.checkQMID("123456789")) {
+    		//DataBase.getNew().regUser(new User("123456789","aaa","1@2.3"));
+    		DataBase.getCurrent().writeToFile();
     	}
     }
 }
