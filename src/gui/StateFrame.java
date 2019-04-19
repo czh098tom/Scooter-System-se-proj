@@ -17,11 +17,11 @@ public abstract class StateFrame extends JFrame implements ActionListener {
 		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 	}
 	
-	protected void register(Object eventSource, Supplier<StateFrame> target) {
+	protected final void register(Object eventSource, Supplier<StateFrame> target) {
 		commands.put(eventSource, target);
 	}
 	
-	protected void registerClosing(Supplier<StateFrame> target) {
+	protected final void registerClosing(Supplier<StateFrame> target) {
 		if(target!=null){
 			this.addWindowListener(new WindowAdapter() {
 				public void windowClosing(WindowEvent e) {
@@ -36,6 +36,10 @@ public abstract class StateFrame extends JFrame implements ActionListener {
 		else {
 			this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		}
+	}
+	
+	protected final StateManager getParentManager() {
+		return parent;
 	}
 	
 	@Override
