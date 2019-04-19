@@ -1,3 +1,4 @@
+package data;
 public abstract class Transaction {
     public static final String NANSCOOTER_ID="";
 

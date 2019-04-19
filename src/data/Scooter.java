@@ -1,3 +1,4 @@
+package data;
 public class Scooter{
     private String id;
 
