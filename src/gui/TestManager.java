@@ -17,8 +17,12 @@ public class TestManager extends StateManager {
     	System.out.println(User.checkQMID("12345678"));//false
     	
     	if(User.checkEmail("1@2.3")&&User.checkQMID("123456789")) {
-    		DataBase.getNew().regUser(new User("123456789","aaa","1@2.3"));
-    		DataBase.getCurrent().writeToFile();
+    		DataBase db=DataBase.getNew();
+    		db.initialize();
+    		db.regUser(new User("123456789","aaa","1@2.3"));
+    		db.putScooter(0,0,"aaa");
+    		db.takeScooter("123456789", 0, 0);
+    		db.writeToFile();
     	}
     	
     	TestManager tm=new TestManager();

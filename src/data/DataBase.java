@@ -1,18 +1,24 @@
 package data;
-import java.util.ArrayList;
+import java.util.*;
 import java.io.*;
 import java.beans.XMLDecoder;
 import java.beans.XMLEncoder;
 
-public class DataBase {
-    private ArrayList<User> users=new ArrayList<>();
-    private ArrayList<Station> stations=new ArrayList<>();
-    private ArrayList<Scooter> scooters=new ArrayList<>();
-    private ArrayList<Transaction> transactions=new ArrayList<>();
-    
-    private int a=1;
+public final class DataBase {
+    private LinkedList<User> users=new LinkedList<>();
+    private LinkedList<Station> stations=new LinkedList<>();
+    private LinkedList<Scooter> scooters=new LinkedList<>();
+    private LinkedList<Transaction> transactions=new LinkedList<>();
     
     private static DataBase _current=null;
+    
+    private DataBase() {}
+    
+    public void initialize() {
+    	stations.push(new Station());
+    	stations.push(new Station());
+    	stations.push(new Station());
+    }
     
     public static DataBase getCurrent() {
     	if(_current==null) {
@@ -28,19 +34,19 @@ public class DataBase {
     	try {
         	FileInputStream fis=new FileInputStream("data/users.xml");
     		decoder=new XMLDecoder(fis);
-    		_current.users=(ArrayList<User>)decoder.readObject();
+    		_current.users=(LinkedList<User>)decoder.readObject();
         	fis=new FileInputStream("data/transactions.xml");
     		decoder.close();
     		decoder=new XMLDecoder(fis);
-    		_current.transactions=(ArrayList<Transaction>)decoder.readObject();
+    		_current.transactions=(LinkedList<Transaction>)decoder.readObject();
         	fis=new FileInputStream("data/stations.xml");
     		decoder.close();
     		decoder=new XMLDecoder(fis);
-    		_current.stations=(ArrayList<Station>)decoder.readObject();
+    		_current.stations=(LinkedList<Station>)decoder.readObject();
         	fis=new FileInputStream("data/scooters.xml");
     		decoder.close();
     		decoder=new XMLDecoder(fis);
-    		_current.scooters=(ArrayList<Scooter>)decoder.readObject();
+    		_current.scooters=(LinkedList<Scooter>)decoder.readObject();
     	}
     	catch(Exception e) {
     		e.printStackTrace();
@@ -58,13 +64,37 @@ public class DataBase {
     	return _current;
     }
 
-    public User getUserByID(String id){
-        ArrayList<User> lookup=new ArrayList<>();
+    public User getUserByID(String userid){
+    	LinkedList<User> lookup=new LinkedList<>();
         users.forEach((u)->{
-            if(u.getID().equals(id))lookup.add(u);
+            if(u.getID().equals(userid))lookup.add(u);
         });
         if(lookup.size()>0)return lookup.get(0);
         return null;
+    }
+    
+    public void putScooter(int stationid,int slotid,String scooterid) {
+    	stations.get(stationid).putScooter(new Scooter(scooterid),slotid);
+    }
+    
+    public void takeScooter(String userid,int stationid,int slotid) {
+    	Scooter s=stations.get(stationid).removeScooter(slotid);
+    	transactions.add(new Transaction(Transaction.TYPE_TAKE,userid,s.getID()));
+    }
+    
+    public boolean isUserTaking(String userid) {
+    	int sum=0;
+    	for(Transaction u:transactions) {
+    		if(u.getUserID().equals(userid)) {
+    			if(u.isTake()) {
+    				sum++;
+    			}
+    			else if(u.isReturn()){
+    				sum--;
+    			}
+    		}
+    	}
+    	return sum!=0;
     }
     
     public boolean userExists(String id) {
