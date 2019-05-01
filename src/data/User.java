@@ -1,6 +1,5 @@
 package data;
 import java.util.regex.Pattern;
-import java.beans.*;
 
 public class User{
 
@@ -10,8 +9,6 @@ public class User{
     private String id;
     private String name;
     private String email;
-
-    //private Scooter taking;
     
     public User() {}
     
@@ -48,7 +45,6 @@ public class User{
     public static boolean checkQMID(String s){
         return QMID_PAT.matcher(s).find();
     }
-    //lalala
 
     public static boolean checkEmail(String s){
         return EMAIL_PAT.matcher(s).find();

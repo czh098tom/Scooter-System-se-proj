@@ -1,10 +1,14 @@
 package data;
 import java.util.*;
+
+import java.time.*;
 import java.io.*;
 import java.beans.XMLDecoder;
 import java.beans.XMLEncoder;
 
 public final class DataBase {
+	private static ZoneOffset localTimeZoneOffset=OffsetDateTime.now().getOffset();
+	
     private LinkedList<User> users=new LinkedList<>();
     private LinkedList<Station> stations=new LinkedList<>();
     private LinkedList<Scooter> scooters=new LinkedList<>();
@@ -63,6 +67,10 @@ public final class DataBase {
     	_current=new DataBase();
     	return _current;
     }
+    
+    public static ZoneOffset getLocalTimeZoneOffset() {
+    	return localTimeZoneOffset;
+    }
 
     public User getUserByID(String userid){
     	LinkedList<User> lookup=new LinkedList<>();
@@ -75,6 +83,43 @@ public final class DataBase {
     
     public void putScooter(int stationid,int slotid,String scooterid) {
     	stations.get(stationid).putScooter(new Scooter(scooterid),slotid);
+    }
+    
+    public boolean isOverDue(String userid,String scooterid) {
+    	Transaction lastwithsameid=null;
+    	for(Transaction t : transactions){
+    		if(t.getUserID()==userid && t.getScooterID()==scooterid && t.isTake())lastwithsameid=t;
+    	}
+    	if(lastwithsameid==null) {
+    		return false;
+    	}
+    	else {
+    		return LocalDateTime.now().minusMinutes(30).isAfter(lastwithsameid.getDateTime());
+    	}
+    }
+    
+    public boolean isTodayUsageOverFlow(String userid) {
+    	long totalMin=0;
+    	LinkedList<Transaction> pending=new LinkedList<Transaction>();
+    	LocalDateTime now=LocalDateTime.now();
+    	for(Transaction t : transactions){
+    		if(t.getUserID()==userid && t.isSameDateOf(now)) {
+    			if(t.isTake()) {
+    				pending.add(t);
+    			}
+    			else if(t.isReturn()) {
+    				Transaction selected=null;
+    				for(Transaction ts:pending) {
+    					if(ts.getScooterID()==t.getScooterID())selected=ts;
+    				}
+    				if(selected!=null) {
+        				pending.remove(selected);
+        				totalMin+=Duration.between(t.getDateTime(), selected.getDateTime()).toMinutes();
+    				}
+    			}
+    		}
+    	}
+    	return totalMin>120;
     }
     
     public void takeScooter(String userid,int stationid,int slotid) {
@@ -131,4 +176,26 @@ public final class DataBase {
     		if(encoder!=null)encoder.close();
     	}
     }
+	
+	public static void main(String[] args) {
+    	//check Email format 1@2.3
+    	System.out.println(User.checkEmail("1@2.3"));//true
+    	System.out.println(User.checkEmail("@2.3"));//false
+    	System.out.println(User.checkEmail("1@.3"));//false
+    	System.out.println(User.checkEmail("1@2."));//false
+    	//check QMID format with only 9 digits
+    	System.out.println(User.checkQMID("123456789"));//true
+    	System.out.println(User.checkQMID("1234567890"));//false
+    	System.out.println(User.checkQMID("abcdefghi"));//false
+    	System.out.println(User.checkQMID("12345678"));//false
+    	
+    	if(User.checkEmail("1@2.3")&&User.checkQMID("123456789")) {
+    		DataBase db=DataBase.getNew();
+    		db.initialize();
+    		db.regUser(new User("123456789","aaa","1@2.3"));
+    		db.putScooter(0,0,"aaa");
+    		db.takeScooter("123456789", 0, 0);
+    		db.writeToFile();
+    	}
+	}
 }
