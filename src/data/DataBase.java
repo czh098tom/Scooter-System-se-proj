@@ -6,24 +6,60 @@ import java.io.*;
 import java.beans.XMLDecoder;
 import java.beans.XMLEncoder;
 
+/**
+ * Store all data that can be recorded. Singleton.
+ * @author ZIHAO CHEN
+ */
 public final class DataBase {
-	private static ZoneOffset localTimeZoneOffset=OffsetDateTime.now().getOffset();
+	/**
+	 * Store local time zone offset for time conversion.
+	 */
+	public static final ZoneOffset LOCAL_TIME_ZONE_OFFSET=OffsetDateTime.now().getOffset();
 	
+	/**
+	 * Store data of users.
+	 */
     private LinkedList<User> users=new LinkedList<>();
+    /**
+     * Store data of stations.
+     */
     private LinkedList<Station> stations=new LinkedList<>();
+    /**
+     * Store data of scooters.
+     */
     private LinkedList<Scooter> scooters=new LinkedList<>();
+    /**
+     * Store data of transactions.
+     */
     private LinkedList<Transaction> transactions=new LinkedList<>();
     
+    /**
+     * Store the singleton instance of this object.
+     */
     private static DataBase _current=null;
     
+    /**
+     * Hide default constructor.
+     */
     private DataBase() {}
     
+    /**
+     * Initialize the database with three stations.
+     */
     public void initialize() {
+    	users.clear();
+    	scooters.clear();
+    	stations.clear();
     	stations.push(new Station());
     	stations.push(new Station());
     	stations.push(new Station());
+    	transactions.clear();
     }
     
+    /**
+     * Get the singleton instance. If it does not exists, create one by reading from file.
+     * @return An object of type {@link DataBase}, not null.
+     */
     public static DataBase getCurrent() {
     	if(_current==null) {
     		_current=new DataBase();
@@ -32,6 +68,9 @@ public final class DataBase {
     	return _current;
     }
     
+    /**
+     * Read the User, Station, Scooter, Transaction data from file.
+     */
     @SuppressWarnings("unchecked")
 	private static void readFromFile() {
     	XMLDecoder decoder=null;
@@ -63,15 +102,21 @@ public final class DataBase {
     	}
     }
     
+    /**
+     * Overwrite current instance of {@link DataBase} by a new one, then return it.
+     * @return An object of type {@link DataBase}, not null.
+     */
     public static DataBase getNew() {
     	_current=new DataBase();
     	return _current;
     }
     
-    public static ZoneOffset getLocalTimeZoneOffset() {
-    	return localTimeZoneOffset;
-    }
-
+    /**
+     * Get a user by a given ID. 
+     * It does not desire multiple user with same ID exists. If so, it will get the first user.
+     * @param userid : The ID of the user.
+     * @return An object of type {@link User}. if nothing is found, it will return null.
+     */
     public User getUserByID(String userid){
     	LinkedList<User> lookup=new LinkedList<>();
         users.forEach((u)->{
@@ -81,10 +126,24 @@ public final class DataBase {
         return null;
     }
     
+    /**
+     * Directly put a scooter from outside of the system to the system, triggering no transaction record.
+     * @param stationid : The target station ID.
+     * @param slotid : The target slot ID in the station, from 1 to {@link Station}.SCOOTERCOUNT-1. 
+     * If it excesses this range, it will result in an error.
+     * @param scooterid : The id of the scooter. Desired to be unique.
+     */
     public void putScooter(int stationid,int slotid,String scooterid) {
-    	stations.get(stationid).putScooter(new Scooter(scooterid),slotid);
+    	Scooter s=new Scooter(scooterid);
+    	stations.get(stationid).putScooter(s,slotid);
     }
     
+    /**
+     * Check whether a given user taking a given scooter is overdue.
+     * @param userid : The id of a given user.
+     * @param scooterid : The id of a given scooter.
+     * @return A boolean value. True for overdue, false for not overdue or not find a record.
+     */
     public boolean isOverDue(String userid,String scooterid) {
     	Transaction lastwithsameid=null;
     	for(Transaction t : transactions){
@@ -98,6 +157,11 @@ public final class DataBase {
     	}
     }
     
+    /**
+     * Check whether a given user excess usage time TODAY.
+     * @param userid : The id of a given user.
+     * @return A boolean value. True for overdue, vice versa.
+     */
     public boolean isTodayUsageOverFlow(String userid) {
     	long totalMin=0;
     	LinkedList<Transaction> pending=new LinkedList<Transaction>();
@@ -122,11 +186,22 @@ public final class DataBase {
     	return totalMin>120;
     }
     
+    /**
+     * Take a scooter from a station. This will trigger transaction record.
+     * @param userid : The id of operator user.
+     * @param stationid : The id of target station.
+     * @param slotid : The target slot ID in the station, from 1 to {@link Station}.SCOOTERCOUNT-1. 
+     */
     public void takeScooter(String userid,int stationid,int slotid) {
     	Scooter s=stations.get(stationid).removeScooter(slotid);
     	transactions.add(new Transaction(Transaction.TYPE_TAKE,userid,s.getID()));
     }
     
+    /**
+     * Check whether user is taking a scooter.
+     * @param userid : The id of operator user.
+     * @return A boolean value, True for user is taking any scooters.
+     */
     public boolean isUserTaking(String userid) {
     	int sum=0;
     	for(Transaction u:transactions) {
@@ -139,17 +214,29 @@ public final class DataBase {
     			}
     		}
     	}
-    	return sum!=0;
+    	return sum>=0;
     }
     
+    /***
+     * Check whether user with a given ID exists.
+     * @param id : The target id.
+     * @return A boolean value. True for exist.
+     */
     public boolean userExists(String id) {
-    	return getUserByID(id)==null;
+    	return getUserByID(id)!=null;
     }
     
+    /**
+     * Register a {@link User} to current database.
+     * @param u : A validated user.
+     */
     public void regUser(User u) {
     	users.add(u);
     }
     
+    /**
+     * Write current {@link DataBase} to file.
+     */
     public void writeToFile() {
     	XMLEncoder encoder=null;
     	try {
