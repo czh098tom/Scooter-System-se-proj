@@ -147,7 +147,8 @@ public final class DataBase {
     public boolean isOverDue(String userid,String scooterid) {
     	Transaction lastwithsameid=null;
     	for(Transaction t : transactions){
-    		if(t.getUserID()==userid && t.getScooterID()==scooterid && t.isTake())lastwithsameid=t;
+    		if(t.getUserID().equals(userid) && t.getScooterID().equals(scooterid)
+    				&& t.isTake())lastwithsameid=t;
     	}
     	if(lastwithsameid==null) {
     		return false;
@@ -167,14 +168,14 @@ public final class DataBase {
     	LinkedList<Transaction> pending=new LinkedList<Transaction>();
     	LocalDateTime now=LocalDateTime.now();
     	for(Transaction t : transactions){
-    		if(t.getUserID()==userid && t.isSameDateOf(now)) {
+    		if(t.getUserID().equals(userid) && t.isSameDateOf(now)) {
     			if(t.isTake()) {
     				pending.add(t);
     			}
     			else if(t.isReturn()) {
     				Transaction selected=null;
     				for(Transaction ts:pending) {
-    					if(ts.getScooterID()==t.getScooterID())selected=ts;
+    					if(ts.getScooterID().equals(t.getScooterID()))selected=ts;
     				}
     				if(selected!=null) {
         				pending.remove(selected);
@@ -184,6 +185,64 @@ public final class DataBase {
     		}
     	}
     	return totalMin>120;
+    }
+    
+    /**
+     * Check whether a given user have fine to pay.
+     * @param userid : The ID of a given user.
+     * @return A boolean value, True for unpaid.
+     */
+    public boolean isUnpaid(String userid) {
+    	int count=0;
+    	for(Transaction t : transactions) {
+    		if(t.getUserID().equals(userid)) {
+    			if(t.isFine())count++;
+    			else if(t.isPayFine())count--;
+    		}
+    	}
+    	return count>0;
+    }
+    
+    /**
+     * Get a scooter object by its ID.
+     * @param scooterid : The ID of target scooter.
+     * @return A object with type {@link Scooter}, null if not find.
+     */
+    public Scooter getScooterByID(String scooterid) {
+    	LinkedList<Scooter> lookup=new LinkedList<>();
+        scooters.forEach((u)->{
+            if(u.getID().equals(scooterid))lookup.add(u);
+        });
+        if(lookup.size()>0)return lookup.get(0);
+        return null;
+    }
+    
+    /**
+     * Return a scooter to a station. If after operation the operator is fined, return True.
+     * @param userid : The ID of operator.
+     * @param scooterid : The ID of a scooter.
+     * @param stationid : The ID of the target station.
+     * @param slotid : The ID of the target slot in target station.
+     * @return A boolean value, True for after this operation, the operator is fined.
+     */
+    public boolean returnScooter(String userid,String scooterid,int stationid,int slotid) {
+    	boolean isFined=false;
+    	
+    	Scooter s=getScooterByID(scooterid);
+    	if(s!=null) {
+        	stations.get(stationid).putScooter(s, slotid);
+        	if(isOverDue(userid,scooterid)) {
+        		transactions.add(new Transaction(Transaction.TYPE_FINE,userid,Transaction.NAN_ID));
+        		isFined=true;
+        	}
+        	transactions.add(new Transaction(Transaction.TYPE_RETURN,userid,scooterid));
+        	if(isTodayUsageOverFlow(userid)) {
+        		transactions.add(new Transaction(Transaction.TYPE_FINE,userid,Transaction.NAN_ID));
+        		isFined=true;
+        	}
+    	}
+    	
+    	return isFined;
     }
     
     /**
