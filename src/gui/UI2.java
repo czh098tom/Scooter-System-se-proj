@@ -8,15 +8,15 @@ import javax.swing.JTextField;
 
 public class UI2 extends StateFrame{
 	JTextField jt1=new JTextField("Friendly Message");
-	JButton jb1=new JButton("Take");
-	JButton jb2=new JButton("Return");
+	JButton take=new JButton("Take");
+	JButton retu=new JButton("Return");
 	
 	protected UI2(StateManager parent) {
 		super(parent);
 		super.getContentPane().add(jt1);
-		super.getContentPane().add(jb1);
-		super.getContentPane().add(jb2);
-		jb1.addActionListener(new ActionListener() {
+		super.getContentPane().add(take);
+		super.getContentPane().add(retu);
+		take.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -26,7 +26,7 @@ public class UI2 extends StateFrame{
 			}
 			
 		});
-		jb2.addActionListener(new ActionListener() {
+		retu.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {

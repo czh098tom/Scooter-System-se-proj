@@ -7,18 +7,18 @@ import javax.swing.JButton;
 import javax.swing.JTextField;
 
 public class UI1 extends StateFrame {
-	private JTextField jt1=new JTextField("Please enter your QM number:");
-	private JTextField jt2=new JTextField();
-	private JButton jb1=new JButton("SUBMIT");
+	private JTextField prompt1=new JTextField("Please enter your QM number:");
+	private JTextField qmID=new JTextField();
+	private JButton submit=new JButton("SUBMIT");
 	
 	protected UI1(StateManager parent) {
 		super(parent);
 		super.setLayout(null);
-		super.getContentPane().add(jt1);
+		super.getContentPane().add(prompt1);
 //		jt1.setBounds(x, y, width, height);
-		super.getContentPane().add(jt2);
-		super.getContentPane().add(jb1);
-		jb1.addActionListener(new ActionListener() {
+		super.getContentPane().add(qmID);
+		super.getContentPane().add(submit);
+		submit.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
