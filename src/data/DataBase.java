@@ -135,7 +135,7 @@ public final class DataBase {
      */
     public void putScooter(int stationid,int slotid,String scooterid) {
     	Scooter s=new Scooter(scooterid);
-    	stations.get(stationid).putScooter(s,slotid);
+    	stations.get(stationid).putScooter(scooterid,slotid);
     }
     
     /**
@@ -230,7 +230,7 @@ public final class DataBase {
     	
     	Scooter s=getScooterByID(scooterid);
     	if(s!=null) {
-        	stations.get(stationid).putScooter(s, slotid);
+        	stations.get(stationid).putScooter(s.getID(), slotid);
         	if(isOverDue(userid,scooterid)) {
         		transactions.add(new Transaction(Transaction.TYPE_FINE,userid,Transaction.NAN_ID));
         		isFined=true;
@@ -252,8 +252,8 @@ public final class DataBase {
      * @param slotid : The target slot ID in the station, from 1 to {@link Station}.SCOOTERCOUNT-1. 
      */
     public void takeScooter(String userid,int stationid,int slotid) {
-    	Scooter s=stations.get(stationid).removeScooter(slotid);
-    	transactions.add(new Transaction(Transaction.TYPE_TAKE,userid,s.getID()));
+    	String s=stations.get(stationid).removeScooter(slotid);
+    	transactions.add(new Transaction(Transaction.TYPE_TAKE,userid,s));
     }
     
     /**
