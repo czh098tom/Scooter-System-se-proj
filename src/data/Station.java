@@ -12,13 +12,13 @@ public class Station{
     /**
      * Store the scooters in the station.
      */
-    private Scooter[] scooters=new Scooter[SCOOTERCOUNT];
+    private String[] scooters=new String[SCOOTERCOUNT];
     
     /**
      * Get the Scooters array in the station.
      * @return A scooter Array.
      */
-    public Scooter[] getScooters() {
+    public String[] getScooters() {
     	return scooters;
     }
     
@@ -35,7 +35,7 @@ public class Station{
      * @param s : The scooter to put.
      * @param i : The slot ID to insert.
      */
-    public void putScooter(Scooter s,int i){
+    public void putScooter(String s,int i){
         scooters[i]=s;
     }
     
@@ -44,8 +44,8 @@ public class Station{
      * @param i : The slot ID
      * @return An object typed Scooter. Can be null if slot is empty.
      */
-    public Scooter removeScooter(int i) {
-    	Scooter s=scooters[i];
+    public String removeScooter(int i) {
+    	String s=scooters[i];
     	scooters[i]=null;
     	return s;
     }
