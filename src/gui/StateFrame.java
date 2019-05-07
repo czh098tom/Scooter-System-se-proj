@@ -45,7 +45,6 @@ public abstract class StateFrame extends JFrame implements ActionListener {
 	@Override
 	public final void actionPerformed(ActionEvent arg0) {
 		parent.setState(commands.get(arg0.getSource()).get());
-		this.dispose();
 	}
 
 }

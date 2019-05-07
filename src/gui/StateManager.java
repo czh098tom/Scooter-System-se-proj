@@ -4,7 +4,13 @@ public abstract class StateManager {
 	private StateFrame current;
 	
 	public void setState(StateFrame target) {
-		current=target;
-		current.setVisible(true);
+		if(target!=current) {
+			if(current!=null)
+			{
+				current.dispose();
+			}
+			current=target;
+			current.setVisible(true);
+		}
 	}
 }

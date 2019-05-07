@@ -119,9 +119,7 @@ public final class DataBase {
      */
     public User getUserByID(String userid){
     	LinkedList<User> lookup=new LinkedList<>();
-        users.forEach((u)->{
-            if(u.getID().equals(userid))lookup.add(u);
-        });
+    	for(User u:users) if(u.getID().equals(userid))lookup.add(u);
         if(lookup.size()>0)return lookup.get(0);
         return null;
     }

@@ -13,30 +13,26 @@ public class UI2 extends StateFrame{
 	
 	protected UI2(StateManager parent) {
 		super(parent);
+		super.setResizable(false);
+		super.setLayout(null);
+		super.setBounds(0, 0, 750, 500);
 		super.getContentPane().add(jt1);
+		jt1.setEditable(false);
+		jt1.setBounds(0, 0, 750, 200);
 		super.getContentPane().add(take);
+		take.setBounds(50, 250, 200, 100);
+		take.addActionListener(this);
 		super.getContentPane().add(retu);
-		take.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				System.out.println("Please select one slot");
-				
-			}
-			
-		});
-		retu.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				System.out.println("Take your time");
-				
-			}
-			
-		});
+		retu.setBounds(500, 250, 200, 100);
+		retu.addActionListener(this);
+		super.register(take, ()->new UI3(parent));
+		super.register(retu, ()->new UI3(parent));
+		super.registerClosing(null);
 		super.setVisible(true);
+	}
+	
+	public static void main(String[] args) {
+		new UI2(null);
 	}
 	
 }
