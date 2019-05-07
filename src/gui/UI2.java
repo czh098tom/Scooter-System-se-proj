@@ -26,7 +26,7 @@ public class UI2 extends StateFrame{
 		retu.setBounds(500, 250, 200, 100);
 		retu.addActionListener(this);
 		super.register(take, ()->new UI3(parent));
-		super.register(retu, ()->new UI3(parent));
+		super.register(retu, ()->new UI4(parent));
 		super.registerClosing(null);
 		super.setVisible(true);
 	}

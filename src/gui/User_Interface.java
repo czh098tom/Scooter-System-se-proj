@@ -1,5 +1,5 @@
 package gui;
 
-public class User_Interface extends StateManager{
-	
+public class User_Interface extends StateManager {
+
 }
