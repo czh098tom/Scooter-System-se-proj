@@ -17,9 +17,9 @@ public class ManagerFrame extends JFrame{
     JButton user = new JButton("User");
     JButton spot = new JButton("Spot");
 
-    JLabel A = new JLabel("Station A:           ");
-    JLabel B = new JLabel("Station B:           ");
-    JLabel C = new JLabel("Station C:           ");
+    JLabel A = new JLabel("Station A:           				");
+    JLabel B = new JLabel("Station B:           				");
+    JLabel C = new JLabel("Station C:           				");
     JLabel notices = new JLabel("White:available      Grey:unlocked       Black:Empty");
 
     public ManagerFrame() {
