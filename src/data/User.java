@@ -66,15 +66,15 @@ public class User{
      * This method does nothing. Just JavaBean object needed.
      * @param id : No meanings.
      */
-    public void setID(String id){
-    	//Cannot be called
+    public void setId(String id){
+    	this.id=id;
     }
     
     /**
      * Get the ID of the user.
      * @return The ID of the user. Desired to be validated before.
      */
-    public String getID(){
+    public String getId(){
         return id;
     }
     
