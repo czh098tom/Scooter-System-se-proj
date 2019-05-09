@@ -1,11 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<<<<<<< HEAD
+<java version="1.8.0_161" class="java.beans.XMLDecoder">
+=======
 <java version="10.0.1" class="java.beans.XMLDecoder">
+>>>>>>> branch 'master' of https://github.com/czh098tom/Scooter-System-se-proj.git
  <object class="java.util.LinkedList">
   <void method="add">
    <object class="data.Transaction">
     <void property="date">
      <object class="java.util.Date">
+<<<<<<< HEAD
+      <long>1557386261361</long>
+=======
       <long>1557385380182</long>
+>>>>>>> branch 'master' of https://github.com/czh098tom/Scooter-System-se-proj.git
      </object>
     </void>
     <void property="scooterID">
