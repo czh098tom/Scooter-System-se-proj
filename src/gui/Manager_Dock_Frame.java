@@ -11,7 +11,7 @@ public class Manager_Dock_Frame extends JFrame implements ActionListener{
     JPanel stationA = new JPanel();
     JPanel stationB = new JPanel();
     JPanel stationC = new JPanel();
-    static JPanel notification = new JPanel();
+    JPanel notification = new JPanel();
 
     JButton dock = new JButton("Dock");
     JButton user = new JButton("User");
