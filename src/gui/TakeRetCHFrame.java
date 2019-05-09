@@ -31,6 +31,7 @@ public class TakeRetCHFrame extends StateFrame{
 	
 	public static void main(String[] args) {
 		User_Interface dockStation1=new User_Interface(1);
+		dockStation1.setState(new TakeRetCHFrame(dockStation1));
 	}
 	
 }

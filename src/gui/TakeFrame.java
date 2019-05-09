@@ -1,4 +1,8 @@
 package gui;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.TimeUnit;
+
 import javax.swing.JButton;
 import javax.swing.JLabel;
 
@@ -8,8 +12,8 @@ import data.Station;
  * @author Jiansen Song
  * */
 public class TakeFrame extends StateFrame{
-	JLabel timer=new JLabel("Only one minute can be used to take the scooter",JLabel.CENTER);
-	JButton[] slot=new JButton[Station.SCOOTERCOUNT];
+	private static JLabel timer=new JLabel("Only one minute can be used to take the scooter",JLabel.CENTER);
+	private JButton[] slot=new JButton[Station.SCOOTERCOUNT];
 	
 	protected TakeFrame(User_Interface parent) {
 		super(parent);
@@ -32,9 +36,35 @@ public class TakeFrame extends StateFrame{
 //		}
 		super.registerClosing(null);
 		super.setVisible(true);
+		new TimerThread().start();
 	}
 	
 	public static void main(String[] args) {
-		new TakeFrame(null);
+		User_Interface dockStation1=new User_Interface(1);
+		dockStation1.setState(new TakeFrame(dockStation1));
+	}
+	
+	class TimerThread extends Thread{
+		
+		public void run() {
+			int countDown=60;
+			Timer timer=new Timer();
+			timer.schedule(new TimerTask() {
+				int i=0;
+				public void run() {
+					TakeFrame.timer.setText(String.format("Only %d seconds left", countDown-i));
+					i++;
+				}
+			},0,1000);
+			try {
+				TimeUnit.SECONDS.sleep(60);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			timer.cancel();
+			TakeFrame.timer.setText("Time runs out");
+		}
+		
 	}
 }
