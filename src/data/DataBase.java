@@ -17,6 +17,15 @@ public final class DataBase {
 	public static final ZoneOffset LOCAL_TIME_ZONE_OFFSET=OffsetDateTime.now().getOffset();
 	
 	/**
+	 * Indicate current usage is overdue.
+	 */
+	public static final int CURRENT_OVERDUE=1;
+	/**
+	 * Indicate today usage is overflow.
+	 */
+	public static final int TODAY_OVERFLOW=2;
+	
+	/**
 	 * Store data of users.
 	 */
     private LinkedList<User> users=new LinkedList<>();
@@ -181,7 +190,7 @@ public final class DataBase {
     				}
     				if(selected!=null) {
         				pending.remove(selected);
-        				totalMin+=Duration.between(t.getDateTime(), selected.getDateTime()).toMinutes();
+        				totalMin+=Duration.between(selected.getDateTime(),t.getDateTime()).toMinutes();
     				}
     			}
     		}
@@ -225,22 +234,23 @@ public final class DataBase {
      * @param scooterid : The ID of a scooter.
      * @param stationid : The ID of the target station.
      * @param slotid : The ID of the target slot in target station.
-     * @return A boolean value, True for after this operation, the operator is fined.
+     * @return A integer value, CURRENT_OVERDUE for current fined overdue
+     * , TODAY_OVERFLOW for usage of today overflow.
      */
-    public boolean returnScooter(String userid,String scooterid,int stationid,int slotid) {
-    	boolean isFined=false;
+    public int returnScooter(String userid,String scooterid,int stationid,int slotid) {
+    	int isFined=0;
     	
     	Scooter s=getScooterByID(scooterid);
     	if(s!=null) {
         	stations.get(stationid).putScooter(s.getID(), slotid);
         	if(isOverDue(userid,scooterid)) {
         		transactions.add(new Transaction(Transaction.TYPE_FINE,userid,Transaction.NAN_ID));
-        		isFined=true;
+        		isFined=CURRENT_OVERDUE;
         	}
         	transactions.add(new Transaction(Transaction.TYPE_RETURN,userid,scooterid));
         	if(isTodayUsageOverFlow(userid)) {
         		transactions.add(new Transaction(Transaction.TYPE_FINE,userid,Transaction.NAN_ID));
-        		isFined=true;
+        		isFined=TODAY_OVERFLOW;
         	}
     	}
     	
@@ -289,7 +299,33 @@ public final class DataBase {
     			}
     		}
     	}
-    	return sum>=0;
+    	return sum>0;
+    }
+    
+    /**
+     * Get the furtherest scooter ID which is taking by a given user.
+     * @param userid : ID of a user
+     * @return A String object. Not null if find.
+     */
+    public String FurtherestTaking(String userid) {
+    	ArrayList<String> pendingID=new ArrayList<>();
+    	for(Transaction u:transactions) {
+    		if(u.getUserID().equals(userid)) {
+    			if(u.isTake()) {
+    				pendingID.add(u.getScooterID());
+    			}
+    			else if(u.isReturn()){
+    				for(String s:pendingID) {
+    					if(s.equals(u.getScooterID())) {
+    						pendingID.remove(s);
+    						break;
+    					}
+    				}
+    			}
+    		}
+    	}
+    	if(pendingID.size()>0)return pendingID.get(0);
+    	return null;
     }
     
     /***
@@ -338,32 +374,4 @@ public final class DataBase {
     		if(encoder!=null)encoder.close();
     	}
     }
-	
-	public static void main(String[] args) {
-//		/*
-//    	//check Email format 1@2.3
-//    	System.out.println(User.checkEmail("1@2.3"));//true
-//    	System.out.println(User.checkEmail("@2.3"));//false
-//    	System.out.println(User.checkEmail("1@.3"));//false
-//    	System.out.println(User.checkEmail("1@2."));//false
-//    	//check QMID format with only 9 digits
-//    	System.out.println(User.checkQMID("123456789"));//true
-//    	System.out.println(User.checkQMID("1234567890"));//false
-//    	System.out.println(User.checkQMID("abcdefghi"));//false
-//    	System.out.println(User.checkQMID("12345678"));//false
-//    	*/
-    	if(User.checkEmail("1@2.3")&&User.checkQMID("123456789")) {
-    		//DataBase db=DataBase.getCurrent();
-    		DataBase db=DataBase.getNew();
-    		db.initialize();
-    		db.regUser(new User("123456789","aaa","1@2.3"));
-    		db.putScooter(0,0,"aaa");
-
-    		db.takeScooter("123456789",0,0);
-    		db.returnScooter("123456789","aaa",0,1);
-
-    		System.out.println(db.userExists("123456789"));
-    		db.writeToFile();
-    	}
-	}
 }

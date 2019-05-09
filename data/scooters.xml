@@ -1,17 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<<<<<<< HEAD
-<java version="1.8.0_161" class="java.beans.XMLDecoder">
- <object class="java.util.LinkedList"/>
-=======
 <java version="10.0.1" class="java.beans.XMLDecoder">
  <object class="java.util.LinkedList">
   <void method="add">
    <object class="data.Scooter">
     <void property="ID">
-     <string>aaa</string>
+     <string>A0</string>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="data.Scooter">
+    <void property="ID">
+     <string>A1</string>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="data.Scooter">
+    <void property="ID">
+     <string>A2</string>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="data.Scooter">
+    <void property="ID">
+     <string>A3</string>
     </void>
    </object>
   </void>
  </object>
->>>>>>> branch 'master' of https://github.com/czh098tom/Scooter-System-se-proj.git
 </java>

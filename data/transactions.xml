@@ -1,29 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<<<<<<< HEAD
-<java version="1.8.0_161" class="java.beans.XMLDecoder">
-=======
 <java version="10.0.1" class="java.beans.XMLDecoder">
->>>>>>> branch 'master' of https://github.com/czh098tom/Scooter-System-se-proj.git
  <object class="java.util.LinkedList">
   <void method="add">
    <object class="data.Transaction">
     <void property="date">
      <object class="java.util.Date">
-<<<<<<< HEAD
-      <long>1557386261361</long>
-=======
-      <long>1557385380182</long>
->>>>>>> branch 'master' of https://github.com/czh098tom/Scooter-System-se-proj.git
+      <long>1557410359458</long>
      </object>
     </void>
     <void property="scooterID">
-     <string>aaa</string>
+     <string>A0</string>
     </void>
     <void property="type">
      <int>0</int>
     </void>
     <void property="userID">
-     <string>123456789</string>
+     <string>111111111</string>
     </void>
    </object>
   </void>
@@ -31,17 +23,122 @@
    <object class="data.Transaction">
     <void property="date">
      <object class="java.util.Date">
-      <long>1557385380184</long>
+      <long>1557410359459</long>
      </object>
     </void>
     <void property="scooterID">
-     <string>aaa</string>
+     <string>A0</string>
     </void>
     <void property="type">
      <int>1</int>
     </void>
     <void property="userID">
-     <string>123456789</string>
+     <string>111111111</string>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="data.Transaction">
+    <void property="date">
+     <object class="java.util.Date">
+      <long>1557410359666</long>
+     </object>
+    </void>
+    <void property="scooterID">
+     <string>A1</string>
+    </void>
+    <void property="type">
+     <int>0</int>
+    </void>
+    <void property="userID">
+     <string>222222222</string>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="data.Transaction">
+    <void property="date">
+     <object class="java.util.Date">
+      <long>1557402359666</long>
+     </object>
+    </void>
+    <void property="scooterID">
+     <string>A2</string>
+    </void>
+    <void property="type">
+     <int>0</int>
+    </void>
+    <void property="userID">
+     <string>333333333</string>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="data.Transaction">
+    <void property="date">
+     <object class="java.util.Date">
+      <long>1557410359666</long>
+     </object>
+    </void>
+    <void property="scooterID">
+     <string>A2</string>
+    </void>
+    <void property="type">
+     <int>1</int>
+    </void>
+    <void property="userID">
+     <string>333333333</string>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="data.Transaction">
+    <void property="date">
+     <object class="java.util.Date">
+      <long>1557410359666</long>
+     </object>
+    </void>
+    <void property="scooterID">
+     <string>A2</string>
+    </void>
+    <void property="type">
+     <int>0</int>
+    </void>
+    <void property="userID">
+     <string>333333333</string>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="data.Transaction">
+    <void property="date">
+     <object class="java.util.Date">
+      <long>1557410377926</long>
+     </object>
+    </void>
+    <void property="scooterID">
+     <string>A2</string>
+    </void>
+    <void property="type">
+     <int>1</int>
+    </void>
+    <void property="userID">
+     <string>333333333</string>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="data.Transaction">
+    <void property="date">
+     <object class="java.util.Date">
+      <long>1557410377928</long>
+     </object>
+    </void>
+    <void property="type">
+     <int>2</int>
+    </void>
+    <void property="userID">
+     <string>333333333</string>
     </void>
    </object>
   </void>

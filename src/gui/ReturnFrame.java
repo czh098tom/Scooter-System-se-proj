@@ -28,38 +28,45 @@ public class ReturnFrame extends StateFrame {
 		whichSlot.setBounds(0, 0, 750, 100);
 		super.getContentPane().add(timer);
 		timer.setBounds(0, 100, 750, 100);
+		boolean[] states=DataBase.getCurrent().getStationState(parent.getStationID());
 		for(int i=0;i<8;i++) {
+			final int k=i;
 			slot[i]=new JButton("Slot "+(i+1));
 			super.getContentPane().add(slot[i]);
-			slot[i].setEnabled(false);
+			slot[i].setEnabled(!states[i]);
+			slot[i].addActionListener(this);
+			super.register(slot[i], ()->{
+				DataBase db=DataBase.getCurrent();
+				String scooter=db.FurtherestTaking(parent.getUserID());
+				switch(db.returnScooter(parent.getUserID()
+						, scooter, parent.getStationID(), k)) {
+						case DataBase.CURRENT_OVERDUE:
+							JOptionPane.showMessageDialog(ReturnFrame.this
+									, "Successfully returned. But you are fined "
+									+"due to returning too late this time!");
+							break;
+						case DataBase.TODAY_OVERFLOW:
+							JOptionPane.showMessageDialog(ReturnFrame.this
+									, "Successfully returned. But you are fined "
+									+"due to overusing the system today!");
+							break;
+						default:
+							JOptionPane.showMessageDialog(ReturnFrame.this
+									, "Successfully returned!");
+				}
+				db.writeToFile();
+				return new TakeRetIDFrame(parent);
+			});
 			slot[i].setBounds(i*93, 200, 93, 100);
 		}
 		super.getContentPane().add(cancel);
 		cancel.setBounds(125, 300, 500, 100);
 		cancel.addActionListener(this);
 		super.register(cancel, ()->new TakeRetCHFrame(parent));
-		boolean[] isAvaiable=new boolean[Station.SCOOTERCOUNT];
-		isAvaiable=DataBase.getCurrent().getStationState(parent.getID());
-		for(int i=0;i<Station.SCOOTERCOUNT;i++) {
-			if(!isAvaiable[i]) {
-				whichSlot.setText(String.format("Please return the scooter to the %dth slot",i+1));
-				slot[i].setEnabled(true);
-				slot[i].addActionListener(this);
-				super.register(slot[i], ()->{
-//					returnScooter();
-					return new TakeRetCHFrame(parent);
-				});
-				break;
-			}
-		}
 		
-		super.registerClosing(null);
-		super.setVisible(true);
+		super.registerClosing(()->new TakeRetCHFrame(parent));
+		//super.setVisible(true);
 		new TimerThread().start();
-	}
-	public static void main(String[] args) {
-		User_Interface dockStation1=new User_Interface(1);
-		dockStation1.setState(new ReturnFrame(dockStation1));
 	}
 	
 	class TimerThread extends Thread{

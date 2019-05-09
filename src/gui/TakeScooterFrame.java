@@ -7,6 +7,8 @@ import java.util.concurrent.TimeUnit;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 
+import data.DataBase;
+
 /**
  * @author Jiansen Song
  * */
@@ -25,9 +27,10 @@ public class TakeScooterFrame extends StateFrame{
 		ok.setBounds(50, 250, 200, 100);
 		ok.addActionListener(this);
 		super.register(ok, ()->{
-			/*Take away the Scooter*/
-			System.exit(0);
-			return null;
+			DataBase db=DataBase.getCurrent();
+			db.takeScooter(parent.getUserID(), parent.getStationID(), parent.getSlotID());
+			db.writeToFile();
+			return new TakeRetIDFrame(parent); 
 		});
 		super.getContentPane().add(cancel);
 		cancel.setBounds(500, 250, 200, 100);

@@ -12,6 +12,8 @@ public abstract class StateFrame extends JFrame implements ActionListener {
 	
 	private StateManager parent; 
 	
+	private boolean isDisposingManually=true;
+	
 	protected StateFrame(StateManager parent) {
 		this.parent=parent;
 		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
@@ -29,7 +31,7 @@ public abstract class StateFrame extends JFrame implements ActionListener {
 				}
 				
 				public void windowClosed(WindowEvent e) {
-					parent.setState(target.get());
+					if(isDisposingManually)parent.setState(target.get());
 				}
 			});
 		}
@@ -44,6 +46,7 @@ public abstract class StateFrame extends JFrame implements ActionListener {
 	
 	@Override
 	public final void actionPerformed(ActionEvent arg0) {
+		isDisposingManually=false;
 		parent.setState(commands.get(arg0.getSource()).get());
 	}
 

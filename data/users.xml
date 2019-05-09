@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<<<<<<< HEAD
-<java version="1.8.0_161" class="java.beans.XMLDecoder">
-=======
 <java version="10.0.1" class="java.beans.XMLDecoder">
->>>>>>> branch 'master' of https://github.com/czh098tom/Scooter-System-se-proj.git
  <object class="java.util.LinkedList">
   <void method="add">
    <object class="data.User">
@@ -11,10 +7,36 @@
      <string>1@2.3</string>
     </void>
     <void property="id">
-     <string>123456789</string>
+     <string>111111111</string>
     </void>
     <void property="name">
-     <string>aaa</string>
+     <string>AAA</string>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="data.User">
+    <void property="email">
+     <string>1@2.3</string>
+    </void>
+    <void property="id">
+     <string>222222222</string>
+    </void>
+    <void property="name">
+     <string>BBB</string>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="data.User">
+    <void property="email">
+     <string>1@2.3</string>
+    </void>
+    <void property="id">
+     <string>333333333</string>
+    </void>
+    <void property="name">
+     <string>CCC</string>
     </void>
    </object>
   </void>
