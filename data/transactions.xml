@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<java version="1.8.0_211" class="java.beans.XMLDecoder">
+<java version="10.0.1" class="java.beans.XMLDecoder">
  <object class="java.util.LinkedList">
   <void method="add">
    <object class="data.Transaction">
     <void property="date">
      <object class="java.util.Date">
-      <long>1557381301809</long>
+      <long>1557385380182</long>
      </object>
     </void>
     <void property="scooterID">
@@ -13,6 +13,24 @@
     </void>
     <void property="type">
      <int>0</int>
+    </void>
+    <void property="userID">
+     <string>123456789</string>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="data.Transaction">
+    <void property="date">
+     <object class="java.util.Date">
+      <long>1557385380184</long>
+     </object>
+    </void>
+    <void property="scooterID">
+     <string>aaa</string>
+    </void>
+    <void property="type">
+     <int>1</int>
     </void>
     <void property="userID">
      <string>123456789</string>
