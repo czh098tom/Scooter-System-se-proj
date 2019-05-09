@@ -16,7 +16,7 @@ public class Station{
     
     /**
      * Get the Scooters array in the station.
-     * @return A scooter Array.
+     * @return A String Array.
      */
     public String[] getScooters() {
     	return scooters;

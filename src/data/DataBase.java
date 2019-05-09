@@ -136,7 +136,7 @@ public final class DataBase {
      * @param scooterid : The id of the scooter. Desired to be unique.
      */
     public void putScooter(int stationid,int slotid,String scooterid) {
-    	Scooter s=new Scooter(scooterid);
+    	scooters.add(new Scooter(scooterid));
     	stations.get(stationid).putScooter(scooterid,slotid);
     }
     
@@ -353,12 +353,13 @@ public final class DataBase {
     	System.out.println(User.checkQMID("12345678"));//false
     	*/
     	if(User.checkEmail("1@2.3")&&User.checkQMID("123456789")) {
-    		DataBase db=DataBase.getCurrent();
-    		//DataBase db=DataBase.getNew();
-    		//db.initialize();
-    		//db.regUser(new User("123456789","aaa","1@2.3"));
-    		//db.putScooter(0,0,"aaa");
-    		//db.takeScooter("123456789", 0, 0);
+    		//DataBase db=DataBase.getCurrent();
+    		DataBase db=DataBase.getNew();
+    		db.initialize();
+    		db.regUser(new User("123456789","aaa","1@2.3"));
+    		db.putScooter(0,0,"aaa");
+    		db.takeScooter("123456789",0,0);
+    		db.returnScooter("123456789","aaa",0,1);
     		System.out.println(db.userExists("123456789"));
     		db.writeToFile();
     	}
