@@ -4,6 +4,9 @@ import data.Station;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 /*Take frame*/
+/**
+ * @author Jiansen Song
+ * */
 public class TakeFrame extends StateFrame{
 	JTextField timer=new JTextField("Timer");
 	JButton[] slot=new JButton[Station.SCOOTERCOUNT];

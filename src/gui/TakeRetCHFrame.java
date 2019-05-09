@@ -2,7 +2,9 @@ package gui;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
-
+/**
+ * @author Jiansen Song
+ * */
 public class TakeRetCHFrame extends StateFrame{
 	JLabel friendlyMessage=new JLabel("Friendly Message",JLabel.CENTER);
 	JButton take=new JButton("Take");

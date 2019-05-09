@@ -6,7 +6,9 @@ import javax.swing.JTextField;
 
 import data.DataBase;
 import data.User;
-
+/**
+ * @author Jiansen Song
+ * */
 public class TakeRetIDFrame extends StateFrame {
 	private JTextField prompt1=new JTextField("Please enter your QM number:");
 	private JTextField qmID=new JTextField();
