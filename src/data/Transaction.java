@@ -76,7 +76,7 @@ public class Transaction {
      * @param value : No meanings.
      */
     public void setType(int value){
-    	//Cannot be called
+    	this.type=value;
     }
 
     /**
@@ -84,7 +84,7 @@ public class Transaction {
      * @param value : No meanings.
      */
     public void setScooterID(String value){
-    	
+    	this.scooterID=value;
     }
 
     /**
@@ -92,7 +92,7 @@ public class Transaction {
      * @param value : No meanings.
      */
     public void setUserID(String value){
-    	
+    	this.userID=value;
     }
 
     /**
@@ -100,7 +100,7 @@ public class Transaction {
      * @param value : No meanings.
      */
     public void setDate(Date value){
-    	
+    	this.transactionTime=value;
     }
 
     /**

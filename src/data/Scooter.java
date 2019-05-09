@@ -38,6 +38,6 @@ public class Scooter{
      * @param id : No meanings.
      */
     public void setID(String value) {
-    	//Cannot be called
+    	this.id=value;
     }
 }

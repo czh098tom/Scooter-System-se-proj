@@ -26,8 +26,8 @@ public class Station{
      * This method does nothing. Just JavaBean object needed.
      * @param value : No meanings.
      */
-    public void setScooters(Scooter[] value) {
-    	//Cannot be called
+    public void setScooters(String[] value) {
+    	scooters=value;
     }
 
     /**

@@ -1,18 +1,20 @@
 package gui;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.awt.*;
-import javax.swing.*;
-import javax.swing.table.JTableHeader;
+import data.User;
+
+import java.awt.Font;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.JOptionPane;
 
 public class EnterIDFrame extends StateFrame{
 
+
+	JTextField IDText=null ;
 
 	protected EnterIDFrame(StateManager parent) {
 		super(parent);
@@ -21,7 +23,6 @@ public class EnterIDFrame extends StateFrame{
 		
 		JButton submitButton=null;
 		JLabel warnLabel=null; 
-		JTextField IDText=null ;
 
 	    warnLabel = new JLabel();
 	    warnLabel.setBounds(100,50,500,70);
@@ -36,8 +37,29 @@ public class EnterIDFrame extends StateFrame{
 	    submitButton=new JButton("submit");
 	    submitButton.setFont(new Font(Font.DIALOG,Font.BOLD,30));
 	    submitButton.addActionListener(this);
-	    super.register(submitButton,()->new RegisterFrame(parent));
-		super.registerClosing(()->new RegisterFrame(parent));
+	    super.register(submitButton,()->
+	    {
+	    	
+	    	if(!User.checkQMID(IDText.getText())) {
+	    		Object[] options ={ "re", "Exit" }; 
+		    	int m = JOptionPane.showOptionDialog(null, "Correct Answer: "+"111", "You are wrong!",JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+                if(m!=0) {
+                	System.exit(0);
+                }
+//	    		if(JOptionPane.showConfirmDialog(this, "")==
+//	    				JOptionPane.CANCEL_OPTION) {
+//	    			System.exit(0);
+//	    		}
+	    		else {
+	    			
+	    			
+	    			IDText.setText("");
+			    	return new EnterIDFrame(parent);
+	    		}
+	    	}
+	    	return new RegisterFrame(parent);
+	    });
+		super.registerClosing(null);
 	    submitButton.setBounds(200,270,300,70);
 		panel.add(submitButton);
 		

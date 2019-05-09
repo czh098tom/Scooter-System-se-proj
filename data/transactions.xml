@@ -2,22 +2,7 @@
 <java version="10.0.1" class="java.beans.XMLDecoder">
  <object class="java.util.LinkedList">
   <void method="add">
-   <object class="data.Transaction">
-    <void property="date">
-     <object class="java.util.Date">
-      <long>1557109297129</long>
-     </object>
-    </void>
-    <void property="scooterID">
-     <string>aaa</string>
-    </void>
-    <void property="type">
-     <int>0</int>
-    </void>
-    <void property="userID">
-     <string>123456789</string>
-    </void>
-   </object>
+   <object class="data.Transaction"/>
   </void>
  </object>
 </java>
