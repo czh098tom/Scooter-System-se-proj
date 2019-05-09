@@ -7,12 +7,12 @@ import javax.swing.JTextField;
 import data.DataBase;
 import data.User;
 
-public class UI1 extends StateFrame {
+public class TakeRetIDFrame extends StateFrame {
 	private JTextField prompt1=new JTextField("Please enter your QM number:");
 	private JTextField qmID=new JTextField();
 	private JButton submit=new JButton("SUBMIT");
 	
-	protected UI1(StateManager parent) {
+	protected TakeRetIDFrame(StateManager parent) {
 		super(parent);
 		super.setLayout(null);
 		super.setResizable(false);
@@ -28,11 +28,11 @@ public class UI1 extends StateFrame {
 		super.register(submit, ()->{
 			String id=qmID.getText();
 			DataBase data=DataBase.getCurrent();
-			if(User.checkQMID(id)/*&&data.userExists(id)*/) {
-				return new UI2(parent);
+			if(User.checkQMID(id)&&data.userExists(id)) {
+				return new TakeRetCHFrame(parent);
 			}else {
 				JOptionPane.showMessageDialog(this, "User is not existed"); 
-				return UI1.this;
+				return TakeRetIDFrame.this;
 			}
 		});
 		super.registerClosing(null);
@@ -41,7 +41,11 @@ public class UI1 extends StateFrame {
 	}
 	
 	public static void main(String[] args) {
-		User_Interface ui=new User_Interface();
-		ui.setState(new UI1(ui));
+		User_Interface dockStation1=new User_Interface();
+		dockStation1.setState(new TakeRetIDFrame(dockStation1));
+//		User_Interface dockStation2=new User_Interface();
+//		dockStation2.setState(new TakeRetIDFrame(dockStation2));
+//		User_Interface dockStation3=new User_Interface();
+//		dockStation3.setState(new TakeRetIDFrame(dockStation3));
 	}
 }
