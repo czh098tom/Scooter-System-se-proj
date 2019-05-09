@@ -6,11 +6,11 @@ import javax.swing.JLabel;
  * @author Jiansen Song
  * */
 public class TakeRetCHFrame extends StateFrame{
-	JLabel friendlyMessage=new JLabel("Friendly Message",JLabel.CENTER);
+	JLabel friendlyMessage=new JLabel("Welcome to use the scooter-sharing system",JLabel.CENTER);
 	JButton take=new JButton("Take");
 	JButton ret=new JButton("Return");
 	
-	protected TakeRetCHFrame(StateManager parent) {
+	protected TakeRetCHFrame(User_Interface parent) {
 		super(parent);
 		super.setResizable(false);
 		super.setLayout(null);
@@ -30,7 +30,7 @@ public class TakeRetCHFrame extends StateFrame{
 	}
 	
 	public static void main(String[] args) {
-		new TakeRetCHFrame(null);
+		User_Interface dockStation1=new User_Interface(1);
 	}
 	
 }

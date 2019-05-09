@@ -1,8 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<<<<<<< HEAD
 <java version="1.8.0_161" class="java.beans.XMLDecoder">
+=======
+<java version="10.0.1" class="java.beans.XMLDecoder">
+>>>>>>> branch 'master' of https://github.com/czh098tom/Scooter-System-se-proj.git
  <object class="java.util.LinkedList">
   <void method="add">
-   <object class="data.Station"/>
+   <object class="data.Station" id="Station0">
+    <void property="scooters">
+     <void index="1">
+      <string>aaa</string>
+     </void>
+    </void>
+   </object>
   </void>
   <void method="add">
    <object class="data.Station"/>
