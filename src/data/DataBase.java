@@ -248,6 +248,20 @@ public final class DataBase {
     }
     
     /**
+     * This method gets the state of a given station.
+     * @param stationid : ID of the station, must be validated before.
+     * @return A boolean array. Each represents a state of a single slot. 
+     * True for slot that is occupied.
+     */
+    public boolean[] getStationState(int stationid) {
+    	boolean[] states=new boolean[Station.SCOOTERCOUNT];
+    	for(int i=0;i<Station.SCOOTERCOUNT;i++) {
+    		states[i]=stations.get(stationid).getState(i);
+    	}
+    	return states;
+    }
+    
+    /**
      * Take a scooter from a station. This will trigger transaction record.
      * @param userid : The id of operator user.
      * @param stationid : The id of target station.
@@ -325,7 +339,7 @@ public final class DataBase {
     	}
     }
 	
-//	public static void main(String[] args) {
+	public static void main(String[] args) {
 //		/*
 //    	//check Email format 1@2.3
 //    	System.out.println(User.checkEmail("1@2.3"));//true
@@ -338,15 +352,15 @@ public final class DataBase {
 //    	System.out.println(User.checkQMID("abcdefghi"));//false
 //    	System.out.println(User.checkQMID("12345678"));//false
 //    	*/
-//    	if(User.checkEmail("1@2.3")&&User.checkQMID("123456789")) {
-//    		DataBase db=DataBase.getCurrent();
-//    		//DataBase db=DataBase.getNew();
-//    		//db.initialize();
-//    		//db.regUser(new User("123456789","aaa","1@2.3"));
-//    		//db.putScooter(0,0,"aaa");
-//    		//db.takeScooter("123456789", 0, 0);
-//    		System.out.println(db.userExists("123456789"));
-//    		db.writeToFile();
-//    	}
-//	}
+    	if(User.checkEmail("1@2.3")&&User.checkQMID("123456789")) {
+    		//DataBase db=DataBase.getCurrent();
+    		DataBase db=DataBase.getNew();
+    		db.initialize();
+    		db.regUser(new User("123456789","aaa","1@2.3"));
+    		db.putScooter(0,0,"aaa");
+    		db.takeScooter("123456789", 0, 0);
+    		System.out.println(db.userExists("123456789"));
+    		db.writeToFile();
+    	}
+	}
 }

@@ -1,5 +1,6 @@
 package gui;
 
+import data.DataBase;
 import data.User;
 
 import java.awt.Font;
@@ -40,9 +41,10 @@ public class EnterIDFrame extends StateFrame{
 	    super.register(submitButton,()->
 	    {
 	    	
-	    	if(!User.checkQMID(IDText.getText())) {
+	    	String userID=IDText.getText();
+	    	if(!User.checkQMID(userID)) {
 	    		Object[] options ={ "Re-enter", "Exit" }; 
-		    	int m = JOptionPane.showOptionDialog(null, "Your QM number is wrong! Please re-enter it.", "ERROR",JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+		    	int m = JOptionPane.showOptionDialog(null, "Your QM number format is incorrect! Please re-enter it.", "ERROR",JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
                 if(m!=0) {
                 	System.exit(0);
                 }
@@ -51,6 +53,18 @@ public class EnterIDFrame extends StateFrame{
 			    	return EnterIDFrame.this;
 	    		}
 	    	}
+	    	DataBase data=DataBase.getCurrent();
+			if(data.userExists(userID)) {
+				Object[] options ={ "Re-enter", "Exit" }; 
+		    	int m = JOptionPane.showOptionDialog(null, "Your QM number has been registered! Please re-enter it! ", "ERROR",JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+                if(m!=0) {
+                	System.exit(0);
+                }
+	    		else {
+	    			IDText.setText("");
+			    	return EnterIDFrame.this;
+	    		}
+			}
 	    	return new RegisterFrame(parent,IDText.getText());
 	    });
 		super.registerClosing(null);

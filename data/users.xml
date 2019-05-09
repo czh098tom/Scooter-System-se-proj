@@ -14,18 +14,5 @@
     </void>
    </object>
   </void>
-  <void method="add">
-   <object class="data.User">
-    <void property="email">
-     <string>12@q.c</string>
-    </void>
-    <void property="id">
-     <string>123456789</string>
-    </void>
-    <void property="name">
-     <string>wnn</string>
-    </void>
-   </object>
-  </void>
  </object>
 </java>
