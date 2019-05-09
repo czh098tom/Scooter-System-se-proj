@@ -14,7 +14,7 @@ public class TakeRetIDFrame extends StateFrame {
 	private JTextField qmID=new JTextField();
 	private JButton submit=new JButton("SUBMIT");
 	
-	protected TakeRetIDFrame(StateManager parent) {
+	protected TakeRetIDFrame(User_Interface parent) {
 		super(parent);
 		super.setLayout(null);
 		super.setResizable(false);
@@ -43,7 +43,7 @@ public class TakeRetIDFrame extends StateFrame {
 	}
 	
 	public static void main(String[] args) {
-		User_Interface dockStation1=new User_Interface();
+		User_Interface dockStation1=new User_Interface(1);
 		dockStation1.setState(new TakeRetIDFrame(dockStation1));
 //		User_Interface dockStation2=new User_Interface();
 //		dockStation2.setState(new TakeRetIDFrame(dockStation2));
