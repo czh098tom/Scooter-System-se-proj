@@ -40,17 +40,17 @@ public class Manager_Dock_Frame extends JFrame implements ActionListener{
         stationA.add(A);
         for(i=0;i<8;i++){
             if(array[0][i]==0){
-                ImageIcon black = new ImageIcon("C:\\Users\\YSY\\Desktop\\软件工程\\paperprotype\\black.png");
+                ImageIcon black = new ImageIcon("images/black.png");
                 JLabel b = new JLabel(black);
                 stationA.add(b);
             }
             if(array[0][i]==1){
-                ImageIcon white = new ImageIcon("C:\\Users\\YSY\\Desktop\\软件工程\\paperprotype\\white.png");
+                ImageIcon white = new ImageIcon("images/white.png");
                 JLabel w = new JLabel(white);
                 stationA.add(w);
             }
             if(array[0][i]==2){
-                ImageIcon grey = new ImageIcon("C:\\Users\\YSY\\Desktop\\软件工程\\paperprotype\\grey.png");
+                ImageIcon grey = new ImageIcon("images/grey.png");
                 JLabel g = new JLabel(grey);
                 stationA.add(g);
             }
@@ -61,17 +61,17 @@ public class Manager_Dock_Frame extends JFrame implements ActionListener{
         stationB.add(B);
         for(i=0;i<8;i++){
             if(array[1][i]==0){
-                ImageIcon black = new ImageIcon("C:\\Users\\YSY\\Desktop\\软件工程\\paperprotype\\black.png");
+                ImageIcon black = new ImageIcon("images/black.png");
                 JLabel b = new JLabel(black);
                 stationB.add(b);
             }
             if(array[1][i]==1){
-                ImageIcon white = new ImageIcon("C:\\Users\\YSY\\Desktop\\软件工程\\paperprotype\\white.png");
+                ImageIcon white = new ImageIcon("images/white.png");
                 JLabel w = new JLabel(white);
                 stationB.add(w);
             }
             if(array[1][i]==2){
-                ImageIcon grey = new ImageIcon("C:\\Users\\YSY\\Desktop\\软件工程\\paperprotype\\grey.png");
+                ImageIcon grey = new ImageIcon("images/grey.png");
                 JLabel g = new JLabel(grey);
                 stationB.add(g);
             }
@@ -82,17 +82,17 @@ public class Manager_Dock_Frame extends JFrame implements ActionListener{
         stationC.add(C);
         for(i=0;i<8;i++){
             if(array[2][i]==0){
-                ImageIcon black = new ImageIcon("C:\\Users\\YSY\\Desktop\\软件工程\\paperprotype\\black.png");
+                ImageIcon black = new ImageIcon("images/black.png");
                 JLabel b = new JLabel(black);
                 stationC.add(b);
             }
             if(array[2][i]==1){
-                ImageIcon white = new ImageIcon("C:\\Users\\YSY\\Desktop\\软件工程\\paperprotype\\white.png");
+                ImageIcon white = new ImageIcon("images/white.png");
                 JLabel w = new JLabel(white);
                 stationC.add(w);
             }
             if(array[2][i]==2){
-                ImageIcon grey = new ImageIcon("C:\\Users\\YSY\\Desktop\\软件工程\\paperprotype\\grey.png");
+                ImageIcon grey = new ImageIcon("images/grey.png");
                 JLabel g = new JLabel(grey);
                 stationC.add(g);
             }
