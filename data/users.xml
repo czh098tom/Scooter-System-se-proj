@@ -1,13 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<java version="10.0.1" class="java.beans.XMLDecoder">
+<java version="1.8.0_161" class="java.beans.XMLDecoder">
  <object class="java.util.LinkedList">
   <void method="add">
    <object class="data.User">
     <void property="email">
      <string>1@2.3</string>
     </void>
+    <void property="id">
+     <string>123456789</string>
+    </void>
     <void property="name">
      <string>aaa</string>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="data.User">
+    <void property="email">
+     <string>12@q.c</string>
+    </void>
+    <void property="id">
+     <string>123456789</string>
+    </void>
+    <void property="name">
+     <string>wnn</string>
     </void>
    </object>
   </void>

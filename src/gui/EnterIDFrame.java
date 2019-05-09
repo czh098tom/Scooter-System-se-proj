@@ -41,30 +41,24 @@ public class EnterIDFrame extends StateFrame{
 	    {
 	    	
 	    	if(!User.checkQMID(IDText.getText())) {
-	    		Object[] options ={ "re", "Exit" }; 
-		    	int m = JOptionPane.showOptionDialog(null, "Correct Answer: "+"111", "You are wrong!",JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+	    		Object[] options ={ "Re-enter", "Exit" }; 
+		    	int m = JOptionPane.showOptionDialog(null, "Your QM number is wrong! Please re-enter it.", "ERROR",JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
                 if(m!=0) {
                 	System.exit(0);
                 }
-//	    		if(JOptionPane.showConfirmDialog(this, "")==
-//	    				JOptionPane.CANCEL_OPTION) {
-//	    			System.exit(0);
-//	    		}
 	    		else {
-	    			
-	    			
 	    			IDText.setText("");
-			    	return new EnterIDFrame(parent);
+			    	return EnterIDFrame.this;
 	    		}
 	    	}
-	    	return new RegisterFrame(parent);
+	    	return new RegisterFrame(parent,IDText.getText());
 	    });
 		super.registerClosing(null);
 	    submitButton.setBounds(200,270,300,70);
 		panel.add(submitButton);
 		
 		this.setSize(700,500);
-	    this.setLocation(10, 10);
+	    this.setLocation(600, 200);
 	    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.add(panel);
 		this.setVisible(true);

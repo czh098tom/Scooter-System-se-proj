@@ -325,28 +325,28 @@ public final class DataBase {
     	}
     }
 	
-	public static void main(String[] args) {
-		/*
-    	//check Email format 1@2.3
-    	System.out.println(User.checkEmail("1@2.3"));//true
-    	System.out.println(User.checkEmail("@2.3"));//false
-    	System.out.println(User.checkEmail("1@.3"));//false
-    	System.out.println(User.checkEmail("1@2."));//false
-    	//check QMID format with only 9 digits
-    	System.out.println(User.checkQMID("123456789"));//true
-    	System.out.println(User.checkQMID("1234567890"));//false
-    	System.out.println(User.checkQMID("abcdefghi"));//false
-    	System.out.println(User.checkQMID("12345678"));//false
-    	*/
-    	if(User.checkEmail("1@2.3")&&User.checkQMID("123456789")) {
-    		DataBase db=DataBase.getCurrent();
-    		//DataBase db=DataBase.getNew();
-    		//db.initialize();
-    		//db.regUser(new User("123456789","aaa","1@2.3"));
-    		//db.putScooter(0,0,"aaa");
-    		//db.takeScooter("123456789", 0, 0);
-    		System.out.println(db.userExists("123456789"));
-    		db.writeToFile();
-    	}
-	}
+//	public static void main(String[] args) {
+//		/*
+//    	//check Email format 1@2.3
+//    	System.out.println(User.checkEmail("1@2.3"));//true
+//    	System.out.println(User.checkEmail("@2.3"));//false
+//    	System.out.println(User.checkEmail("1@.3"));//false
+//    	System.out.println(User.checkEmail("1@2."));//false
+//    	//check QMID format with only 9 digits
+//    	System.out.println(User.checkQMID("123456789"));//true
+//    	System.out.println(User.checkQMID("1234567890"));//false
+//    	System.out.println(User.checkQMID("abcdefghi"));//false
+//    	System.out.println(User.checkQMID("12345678"));//false
+//    	*/
+//    	if(User.checkEmail("1@2.3")&&User.checkQMID("123456789")) {
+//    		DataBase db=DataBase.getCurrent();
+//    		//DataBase db=DataBase.getNew();
+//    		//db.initialize();
+//    		//db.regUser(new User("123456789","aaa","1@2.3"));
+//    		//db.putScooter(0,0,"aaa");
+//    		//db.takeScooter("123456789", 0, 0);
+//    		System.out.println(db.userExists("123456789"));
+//    		db.writeToFile();
+//    	}
+//	}
 }
