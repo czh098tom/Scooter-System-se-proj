@@ -49,4 +49,13 @@ public class Station{
     	scooters[i]=null;
     	return s;
     }
+    
+    /**
+     * This method gets the state of a given slot.
+     * @param i : The id of the slot. must be validated before called.
+     * @return a boolean value, true if slot is not empty.
+     */
+    public boolean getState(int i) {
+    	return scooters[i]!=null;
+    }
 }

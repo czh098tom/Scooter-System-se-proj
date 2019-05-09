@@ -248,6 +248,20 @@ public final class DataBase {
     }
     
     /**
+     * This method gets the state of a given station.
+     * @param stationid : ID of the station, must be validated before.
+     * @return A boolean array. Each represents a state of a single slot. 
+     * True for slot that is occupied.
+     */
+    public boolean[] getStationState(int stationid) {
+    	boolean[] states=new boolean[Station.SCOOTERCOUNT];
+    	for(int i=0;i<Station.SCOOTERCOUNT;i++) {
+    		states[i]=stations.get(stationid).getState(i);
+    	}
+    	return states;
+    }
+    
+    /**
      * Take a scooter from a station. This will trigger transaction record.
      * @param userid : The id of operator user.
      * @param stationid : The id of target station.
