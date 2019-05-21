@@ -27,20 +27,20 @@ public class TestDataGenerator {
     		}
 
     		System.out.println("1st:");
-    		db.takeScooter("111111111",0,0);
-    		db.returnScooter("111111111","A0",0,7);
+    		new TakeContract("111111111",0,0).takeScooter();
+    		new ReturnContract("111111111",0,7).returnScooter();
     		
     		db.writeToFile();
 
     		//-2,000,000 if current overdue
     		System.out.println("2nd:");
-    		db.takeScooter("222222222",0,1);
+    		new TakeContract("222222222",0,1).takeScooter();
 
     		//-8,000,000 if today overflow
     		System.out.println("3rd:");
-    		db.takeScooter("333333333",0,2);
-    		db.returnScooter("333333333","A2",0,5);
-    		db.takeScooter("333333333",0,5);
+    		new TakeContract("333333333",0,2).takeScooter();
+    		new ReturnContract("333333333",0,5).returnScooter();
+    		new TakeContract("333333333",0,5).takeScooter();
     		
     		db.writeToFile();
     	}

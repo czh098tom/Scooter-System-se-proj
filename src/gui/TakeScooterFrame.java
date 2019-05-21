@@ -8,6 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 
 import data.DataBase;
+import data.TakeContract;
 
 /**
  * @author Jiansen Song
@@ -27,9 +28,7 @@ public class TakeScooterFrame extends StateFrame{
 		ok.setBounds(50, 250, 200, 100);
 		ok.addActionListener(this);
 		super.register(ok, ()->{
-			DataBase db=DataBase.getCurrent();
-			db.takeScooter(parent.getUserID(), parent.getStationID(), parent.getSlotID());
-			db.writeToFile();
+			new TakeContract(parent.getUserID(), parent.getStationID(), parent.getSlotID()).takeScooter();
 			return new TakeRetIDFrame(parent); 
 		});
 		super.getContentPane().add(cancel);

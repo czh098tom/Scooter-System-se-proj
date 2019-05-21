@@ -150,23 +150,47 @@ public final class DataBase {
     }
     
     /**
-     * Check whether a given user taking a given scooter is overdue.
-     * @param userid : The id of a given user.
-     * @param scooterid : The id of a given scooter.
-     * @return A boolean value. True for overdue, false for not overdue or not find a record.
+     * Check whether a given user have fine to pay.
+     * @param userid : The ID of a given user.
+     * @return A boolean value, True for unpaid.
      */
-    public boolean isOverDue(String userid,String scooterid) {
-    	Transaction lastwithsameid=null;
-    	for(Transaction t : transactions){
-    		if(t.getUserID().equals(userid) && t.getScooterID().equals(scooterid)
-    				&& t.isTake())lastwithsameid=t;
+    public boolean isUnpaid(String userid) {
+    	int count=0;
+    	for(Transaction t : transactions) {
+    		if(t.getUserID().equals(userid)) {
+    			if(t.isFine())count++;
+    			else if(t.isPayFine())count--;
+    		}
     	}
-    	if(lastwithsameid==null) {
-    		return false;
+    	return count>0;
+    }
+    
+    /**
+     * Get a scooter object by its ID.
+     * @param scooterid : The ID of target scooter.
+     * @return A object with type {@link Scooter}, null if not find.
+     */
+    public Scooter getScooterByID(String scooterid) {
+    	LinkedList<Scooter> lookup=new LinkedList<>();
+        scooters.forEach((u)->{
+            if(u.getID().equals(scooterid))lookup.add(u);
+        });
+        if(lookup.size()>0)return lookup.get(0);
+        return null;
+    }
+    
+    /**
+     * This method gets the state of a given station.
+     * @param stationid : ID of the station, must be validated before.
+     * @return A boolean array. Each represents a state of a single slot. 
+     * True for slot that is occupied.
+     */
+    public boolean[] getStationState(int stationid) {
+    	boolean[] states=new boolean[Station.SCOOTERCOUNT];
+    	for(int i=0;i<Station.SCOOTERCOUNT;i++) {
+    		states[i]=stations.get(stationid).getState(i);
     	}
-    	else {
-    		return LocalDateTime.now().minusMinutes(30).isAfter(lastwithsameid.getDateTime());
-    	}
+    	return states;
     }
     
     /**
@@ -199,90 +223,6 @@ public final class DataBase {
     }
     
     /**
-     * Check whether a given user have fine to pay.
-     * @param userid : The ID of a given user.
-     * @return A boolean value, True for unpaid.
-     */
-    public boolean isUnpaid(String userid) {
-    	int count=0;
-    	for(Transaction t : transactions) {
-    		if(t.getUserID().equals(userid)) {
-    			if(t.isFine())count++;
-    			else if(t.isPayFine())count--;
-    		}
-    	}
-    	return count>0;
-    }
-    
-    /**
-     * Get a scooter object by its ID.
-     * @param scooterid : The ID of target scooter.
-     * @return A object with type {@link Scooter}, null if not find.
-     */
-    public Scooter getScooterByID(String scooterid) {
-    	LinkedList<Scooter> lookup=new LinkedList<>();
-        scooters.forEach((u)->{
-            if(u.getID().equals(scooterid))lookup.add(u);
-        });
-        if(lookup.size()>0)return lookup.get(0);
-        return null;
-    }
-    
-    /**
-     * Return a scooter to a station. If after operation the operator is fined, return True.
-     * @param userid : The ID of operator.
-     * @param scooterid : The ID of a scooter.
-     * @param stationid : The ID of the target station.
-     * @param slotid : The ID of the target slot in target station.
-     * @return A integer value, CURRENT_OVERDUE for current fined overdue
-     * , TODAY_OVERFLOW for usage of today overflow.
-     */
-    public int returnScooter(String userid,String scooterid,int stationid,int slotid) {
-    	int isFined=0;
-    	
-    	Scooter s=getScooterByID(scooterid);
-    	if(s!=null) {
-        	stations.get(stationid).putScooter(s.getID(), slotid);
-        	if(isOverDue(userid,scooterid)) {
-        		transactions.add(new Transaction(Transaction.TYPE_FINE,userid,Transaction.NAN_ID));
-        		isFined=CURRENT_OVERDUE;
-        	}
-        	transactions.add(new Transaction(Transaction.TYPE_RETURN,userid,scooterid));
-        	if(isTodayUsageOverFlow(userid)) {
-        		transactions.add(new Transaction(Transaction.TYPE_FINE,userid,Transaction.NAN_ID));
-        		isFined=TODAY_OVERFLOW;
-        	}
-    	}
-    	
-    	return isFined;
-    }
-    
-    /**
-     * This method gets the state of a given station.
-     * @param stationid : ID of the station, must be validated before.
-     * @return A boolean array. Each represents a state of a single slot. 
-     * True for slot that is occupied.
-     */
-    public boolean[] getStationState(int stationid) {
-    	boolean[] states=new boolean[Station.SCOOTERCOUNT];
-    	for(int i=0;i<Station.SCOOTERCOUNT;i++) {
-    		states[i]=stations.get(stationid).getState(i);
-    	}
-    	return states;
-    }
-    
-    /**
-     * Take a scooter from a station. This will trigger transaction record.
-     * @param userid : The id of operator user.
-     * @param stationid : The id of target station.
-     * @param slotid : The target slot ID in the station, from 1 to {@link Station}.SCOOTERCOUNT-1. 
-     */
-    public void takeScooter(String userid,int stationid,int slotid) {
-    	String s=stations.get(stationid).removeScooter(slotid);
-    	transactions.add(new Transaction(Transaction.TYPE_TAKE,userid,s));
-    }
-    
-    /**
      * Check whether user is taking a scooter.
      * @param userid : The id of operator user.
      * @return A boolean value, True for user is taking any scooters.
@@ -300,32 +240,6 @@ public final class DataBase {
     		}
     	}
     	return sum>0;
-    }
-    
-    /**
-     * Get the furtherest scooter ID which is taking by a given user.
-     * @param userid : ID of a user
-     * @return A String object. Not null if find.
-     */
-    public String FurtherestTaking(String userid) {
-    	ArrayList<String> pendingID=new ArrayList<>();
-    	for(Transaction u:transactions) {
-    		if(u.getUserID().equals(userid)) {
-    			if(u.isTake()) {
-    				pendingID.add(u.getScooterID());
-    			}
-    			else if(u.isReturn()){
-    				for(String s:pendingID) {
-    					if(s.equals(u.getScooterID())) {
-    						pendingID.remove(s);
-    						break;
-    					}
-    				}
-    			}
-    		}
-    	}
-    	if(pendingID.size()>0)return pendingID.get(0);
-    	return null;
     }
     
     /***

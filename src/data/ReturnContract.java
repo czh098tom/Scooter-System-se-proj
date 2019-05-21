@@ -98,11 +98,12 @@ public class ReturnContract {
         		isFined=CURRENT_OVERDUE;
         	}
         	transactions.add(new Transaction(Transaction.TYPE_RETURN,userID,scooter.getID()));
-        	if(isTodayUsageOverFlow()) {
+        	if(DataBase.getCurrent().isTodayUsageOverFlow(userID)) {
         		transactions.add(new Transaction(Transaction.TYPE_FINE,userID,Transaction.NAN_ID));
         		isFined=TODAY_OVERFLOW;
         	}
     	}
+    	DataBase.getCurrent().writeToFile();
     	
     	return isFined;
     }
@@ -123,33 +124,5 @@ public class ReturnContract {
     	else {
     		return LocalDateTime.now().minusMinutes(30).isAfter(lastwithsameid.getDateTime());
     	}
-    }
-    
-    /**
-     * Check whether a given user excess usage time TODAY.
-     * @return A boolean value. True for overdue, vice versa.
-     */
-    private boolean isTodayUsageOverFlow() {
-    	long totalMin=0;
-    	LinkedList<Transaction> pending=new LinkedList<Transaction>();
-    	LocalDateTime now=LocalDateTime.now();
-    	for(Transaction t : transactions){
-    		if(t.getUserID().equals(userID) && t.isSameDateOf(now)) {
-    			if(t.isTake()) {
-    				pending.add(t);
-    			}
-    			else if(t.isReturn()) {
-    				Transaction selected=null;
-    				for(Transaction ts:pending) {
-    					if(ts.getScooterID().equals(t.getScooterID()))selected=ts;
-    				}
-    				if(selected!=null) {
-        				pending.remove(selected);
-        				totalMin+=Duration.between(selected.getDateTime(),t.getDateTime()).toMinutes();
-    				}
-    			}
-    		}
-    	}
-    	return totalMin>120;
     }
 }

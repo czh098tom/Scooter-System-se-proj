@@ -37,5 +37,6 @@ public class TakeContract {
     public void takeScooter() {
     	String s=station.removeScooter(slotID);
     	DataBase.getCurrent().getTransactions().add(new Transaction(Transaction.TYPE_TAKE,userID,s));
+    	DataBase.getCurrent().writeToFile();
     }
 }

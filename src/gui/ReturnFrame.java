@@ -1,5 +1,6 @@
 package gui;
 import data.DataBase;
+import data.ReturnContract;
 import data.Station;
 
 import java.util.Timer;
@@ -36,10 +37,8 @@ public class ReturnFrame extends StateFrame {
 			slot[i].setEnabled(!states[i]);
 			slot[i].addActionListener(this);
 			super.register(slot[i], ()->{
-				DataBase db=DataBase.getCurrent();
-				String scooter=db.FurtherestTaking(parent.getUserID());
-				switch(db.returnScooter(parent.getUserID()
-						, scooter, parent.getStationID(), k)) {
+				switch(new ReturnContract(parent.getUserID(), parent.getStationID(), k)
+						.returnScooter()) {
 						case DataBase.CURRENT_OVERDUE:
 							JOptionPane.showMessageDialog(ReturnFrame.this
 									, "Successfully returned. But you are fined "
@@ -54,7 +53,6 @@ public class ReturnFrame extends StateFrame {
 							JOptionPane.showMessageDialog(ReturnFrame.this
 									, "Successfully returned!");
 				}
-				db.writeToFile();
 				return new TakeRetIDFrame(parent);
 			});
 			slot[i].setBounds(i*93, 200, 93, 100);
