@@ -374,4 +374,21 @@ public final class DataBase {
     		if(encoder!=null)encoder.close();
     	}
     }
+    
+    /**
+     * Get the transactions stored in this database.
+     * @return A object typed {@link:LinkedList<Transaction>}, not null.
+     */
+    public LinkedList<Transaction> getTransactions(){
+    	return transactions;
+    }
+    
+    /**
+     * Get the station stored in this database by its ID.
+     * @param id : The ID of the target station.
+     * @return A object typed {@link:Station}, not null.
+     */
+    public Station getStationByID(int id){
+    	return stations.get(id);
+    }
 }
