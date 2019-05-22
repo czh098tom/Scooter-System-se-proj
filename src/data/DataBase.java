@@ -306,6 +306,28 @@ public final class DataBase {
     }
     
     /**
+     * Get weekly report data of a given user.
+     * @param userid : A String object of userID.
+     * @return An object typed {@link WeeklyReportData}, null if nothing is find
+     */
+    public WeeklyReportData getReportDataOf(String userid){
+    	ArrayList<WeeklyReportData> list=new ArrayList<>();
+    	String id;
+    	for(User u:users) {
+    		id=u.getId();
+    		if(id.contentEquals(userid)) {
+        		list.add(new WeeklyReportData(u.getName(),id,sumWeeklyUsage(id),sumFine(id)));
+    		}
+    	}
+    	if(list.size()>0) {
+        	return list.get(0);
+    	}
+    	else {
+    		return null;
+    	}
+    }
+    
+    /**
      * Get weekly report data.
      * @return An object typed {@link ArrayList<WeeklyReportData>}, not null;
      */
