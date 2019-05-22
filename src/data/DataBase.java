@@ -315,7 +315,7 @@ public final class DataBase {
     	String id;
     	for(User u:users) {
     		id=u.getId();
-    		if(id.contentEquals(userid)) {
+    		if(id.equals(userid)) {
         		list.add(new WeeklyReportData(u.getName(),id,sumWeeklyUsage(id),sumFine(id)));
     		}
     	}
