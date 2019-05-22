@@ -11,9 +11,13 @@ import java.awt.*;
 import javax.swing.*;
 import javax.swing.table.JTableHeader;
 
+import data.DataBase;
+import data.User;
+
 public class RegisterFrame extends StateFrame{
 
-	protected RegisterFrame(StateManager parent) {
+	JTextField nameText,emailText=null ;
+	protected RegisterFrame(StateManager parent,String userID) {
 		super(parent);
 		JPanel panel=new JPanel();
 		panel.setLayout(null);
@@ -39,7 +43,7 @@ public class RegisterFrame extends StateFrame{
 	    warnLabel.setFont(new Font(Font.DIALOG,Font.BOLD,30));
 	    panel.add(warnLabel);
 	    
-		JTextField nameText,emailText=null ;
+		
 		
 		nameText = new JTextField(20);
 		nameText.setBounds(330,130,500,70);
@@ -52,11 +56,34 @@ public class RegisterFrame extends StateFrame{
 	    submitButton=new JButton("submit");
 	    submitButton.setFont(new Font(Font.DIALOG,Font.BOLD,30));
 	    submitButton.addActionListener(this);
+	    super.register(submitButton,()->
+	    {
+	    	String fullName=nameText.getText();
+	    	String email=emailText.getText();
+	    	if(!User.checkEmail(email)) {
+	    		Object[] options ={ "Re-enter", "Exit" }; 
+		    	int m = JOptionPane.showOptionDialog(null, "Your mailbox format is incorrect! Please re-enter it.", "ERROR",JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+                if(m!=0) {
+                	System.exit(0);
+                }
+	    		else {
+	    			emailText.setText("");
+			    	return RegisterFrame.this;
+	    		}
+	    	}
+	    	
+	    	User newUser=new User(userID,fullName,email);
+	    	DataBase database=DataBase.getCurrent();
+	    	database.regUser(newUser);
+	    	database.writeToFile();
+	    	
+	    	return new PersonalFrame(parent,newUser);
+	    });
 	    submitButton.setBounds(255,360,300,70);
 		panel.add(submitButton);
 		
 		this.setSize(1000,500);
-	    this.setLocation(10, 10);
+	    this.setLocation(600, 200);
 	    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.add(panel);
 		this.setVisible(true);

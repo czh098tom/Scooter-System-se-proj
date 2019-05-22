@@ -4,7 +4,28 @@
   <void method="add">
    <object class="data.Scooter">
     <void property="ID">
-     <string>aaa</string>
+     <string>A0</string>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="data.Scooter">
+    <void property="ID">
+     <string>A1</string>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="data.Scooter">
+    <void property="ID">
+     <string>A2</string>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="data.Scooter">
+    <void property="ID">
+     <string>A3</string>
     </void>
    </object>
   </void>

@@ -4,8 +4,14 @@
   <void method="add">
    <object class="data.Station" id="Station0">
     <void property="scooters">
-     <void index="1">
-      <string>aaa</string>
+     <void index="3">
+      <string>A3</string>
+     </void>
+     <void index="5">
+      <string>A2</string>
+     </void>
+     <void index="7">
+      <string>A0</string>
      </void>
     </void>
    </object>

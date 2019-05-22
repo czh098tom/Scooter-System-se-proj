@@ -7,10 +7,36 @@
      <string>1@2.3</string>
     </void>
     <void property="id">
-     <string>123456789</string>
+     <string>111111111</string>
     </void>
     <void property="name">
-     <string>aaa</string>
+     <string>AAA</string>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="data.User">
+    <void property="email">
+     <string>1@2.3</string>
+    </void>
+    <void property="id">
+     <string>222222222</string>
+    </void>
+    <void property="name">
+     <string>BBB</string>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="data.User">
+    <void property="email">
+     <string>1@2.3</string>
+    </void>
+    <void property="id">
+     <string>333333333</string>
+    </void>
+    <void property="name">
+     <string>CCC</string>
     </void>
    </object>
   </void>

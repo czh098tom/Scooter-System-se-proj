@@ -5,17 +5,17 @@
    <object class="data.Transaction">
     <void property="date">
      <object class="java.util.Date">
-      <long>1557385380182</long>
+      <long>1557410359458</long>
      </object>
     </void>
     <void property="scooterID">
-     <string>aaa</string>
+     <string>A0</string>
     </void>
     <void property="type">
      <int>0</int>
     </void>
     <void property="userID">
-     <string>123456789</string>
+     <string>111111111</string>
     </void>
    </object>
   </void>
@@ -23,17 +23,122 @@
    <object class="data.Transaction">
     <void property="date">
      <object class="java.util.Date">
-      <long>1557385380184</long>
+      <long>1557410359459</long>
      </object>
     </void>
     <void property="scooterID">
-     <string>aaa</string>
+     <string>A0</string>
     </void>
     <void property="type">
      <int>1</int>
     </void>
     <void property="userID">
-     <string>123456789</string>
+     <string>111111111</string>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="data.Transaction">
+    <void property="date">
+     <object class="java.util.Date">
+      <long>1557410359666</long>
+     </object>
+    </void>
+    <void property="scooterID">
+     <string>A1</string>
+    </void>
+    <void property="type">
+     <int>0</int>
+    </void>
+    <void property="userID">
+     <string>222222222</string>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="data.Transaction">
+    <void property="date">
+     <object class="java.util.Date">
+      <long>1557402359666</long>
+     </object>
+    </void>
+    <void property="scooterID">
+     <string>A2</string>
+    </void>
+    <void property="type">
+     <int>0</int>
+    </void>
+    <void property="userID">
+     <string>333333333</string>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="data.Transaction">
+    <void property="date">
+     <object class="java.util.Date">
+      <long>1557410359666</long>
+     </object>
+    </void>
+    <void property="scooterID">
+     <string>A2</string>
+    </void>
+    <void property="type">
+     <int>1</int>
+    </void>
+    <void property="userID">
+     <string>333333333</string>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="data.Transaction">
+    <void property="date">
+     <object class="java.util.Date">
+      <long>1557410359666</long>
+     </object>
+    </void>
+    <void property="scooterID">
+     <string>A2</string>
+    </void>
+    <void property="type">
+     <int>0</int>
+    </void>
+    <void property="userID">
+     <string>333333333</string>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="data.Transaction">
+    <void property="date">
+     <object class="java.util.Date">
+      <long>1557410377926</long>
+     </object>
+    </void>
+    <void property="scooterID">
+     <string>A2</string>
+    </void>
+    <void property="type">
+     <int>1</int>
+    </void>
+    <void property="userID">
+     <string>333333333</string>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="data.Transaction">
+    <void property="date">
+     <object class="java.util.Date">
+      <long>1557410377928</long>
+     </object>
+    </void>
+    <void property="type">
+     <int>2</int>
+    </void>
+    <void property="userID">
+     <string>333333333</string>
     </void>
    </object>
   </void>

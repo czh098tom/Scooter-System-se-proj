@@ -1,5 +1,6 @@
 package gui;
 
+import data.DataBase;
 import data.User;
 
 import java.awt.Font;
@@ -40,31 +41,38 @@ public class EnterIDFrame extends StateFrame{
 	    super.register(submitButton,()->
 	    {
 	    	
-	    	if(!User.checkQMID(IDText.getText())) {
-	    		Object[] options ={ "re", "Exit" }; 
-		    	int m = JOptionPane.showOptionDialog(null, "Correct Answer: "+"111", "You are wrong!",JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+	    	String userID=IDText.getText();
+	    	if(!User.checkQMID(userID)) {
+	    		Object[] options ={ "Re-enter", "Exit" }; 
+		    	int m = JOptionPane.showOptionDialog(null, "Your QM number format is incorrect! Please re-enter it.", "ERROR",JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
                 if(m!=0) {
                 	System.exit(0);
                 }
-//	    		if(JOptionPane.showConfirmDialog(this, "")==
-//	    				JOptionPane.CANCEL_OPTION) {
-//	    			System.exit(0);
-//	    		}
 	    		else {
-	    			
-	    			
 	    			IDText.setText("");
-			    	return new EnterIDFrame(parent);
+			    	return EnterIDFrame.this;
 	    		}
 	    	}
-	    	return new RegisterFrame(parent);
+	    	DataBase data=DataBase.getCurrent();
+			if(data.userExists(userID)) {
+				Object[] options ={ "Re-enter", "Exit" }; 
+		    	int m = JOptionPane.showOptionDialog(null, "Your QM number has been registered! Please re-enter it! ", "ERROR",JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+                if(m!=0) {
+                	System.exit(0);
+                }
+	    		else {
+	    			IDText.setText("");
+			    	return EnterIDFrame.this;
+	    		}
+			}
+	    	return new RegisterFrame(parent,IDText.getText());
 	    });
 		super.registerClosing(null);
 	    submitButton.setBounds(200,270,300,70);
 		panel.add(submitButton);
 		
 		this.setSize(700,500);
-	    this.setLocation(10, 10);
+	    this.setLocation(600, 200);
 	    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.add(panel);
 		this.setVisible(true);

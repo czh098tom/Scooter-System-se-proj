@@ -21,7 +21,7 @@ public class TestManager extends StateManager {
     		db.initialize();
     		db.regUser(new User("123456789","aaa","1@2.3"));
     		db.putScooter(0,0,"aaa");
-    		db.takeScooter("123456789", 0, 0);
+    		//db.takeScooter("123456789", 0, 0);
     		db.writeToFile();
     	}
     	

@@ -17,6 +17,15 @@ public final class DataBase {
 	public static final ZoneOffset LOCAL_TIME_ZONE_OFFSET=OffsetDateTime.now().getOffset();
 	
 	/**
+	 * Indicate current usage is overdue.
+	 */
+	public static final int CURRENT_OVERDUE=1;
+	/**
+	 * Indicate today usage is overflow.
+	 */
+	public static final int TODAY_OVERFLOW=2;
+	
+	/**
 	 * Store data of users.
 	 */
     private LinkedList<User> users=new LinkedList<>();
@@ -141,55 +150,6 @@ public final class DataBase {
     }
     
     /**
-     * Check whether a given user taking a given scooter is overdue.
-     * @param userid : The id of a given user.
-     * @param scooterid : The id of a given scooter.
-     * @return A boolean value. True for overdue, false for not overdue or not find a record.
-     */
-    public boolean isOverDue(String userid,String scooterid) {
-    	Transaction lastwithsameid=null;
-    	for(Transaction t : transactions){
-    		if(t.getUserID().equals(userid) && t.getScooterID().equals(scooterid)
-    				&& t.isTake())lastwithsameid=t;
-    	}
-    	if(lastwithsameid==null) {
-    		return false;
-    	}
-    	else {
-    		return LocalDateTime.now().minusMinutes(30).isAfter(lastwithsameid.getDateTime());
-    	}
-    }
-    
-    /**
-     * Check whether a given user excess usage time TODAY.
-     * @param userid : The id of a given user.
-     * @return A boolean value. True for overdue, vice versa.
-     */
-    public boolean isTodayUsageOverFlow(String userid) {
-    	long totalMin=0;
-    	LinkedList<Transaction> pending=new LinkedList<Transaction>();
-    	LocalDateTime now=LocalDateTime.now();
-    	for(Transaction t : transactions){
-    		if(t.getUserID().equals(userid) && t.isSameDateOf(now)) {
-    			if(t.isTake()) {
-    				pending.add(t);
-    			}
-    			else if(t.isReturn()) {
-    				Transaction selected=null;
-    				for(Transaction ts:pending) {
-    					if(ts.getScooterID().equals(t.getScooterID()))selected=ts;
-    				}
-    				if(selected!=null) {
-        				pending.remove(selected);
-        				totalMin+=Duration.between(t.getDateTime(), selected.getDateTime()).toMinutes();
-    				}
-    			}
-    		}
-    	}
-    	return totalMin>120;
-    }
-    
-    /**
      * Check whether a given user have fine to pay.
      * @param userid : The ID of a given user.
      * @return A boolean value, True for unpaid.
@@ -220,34 +180,6 @@ public final class DataBase {
     }
     
     /**
-     * Return a scooter to a station. If after operation the operator is fined, return True.
-     * @param userid : The ID of operator.
-     * @param scooterid : The ID of a scooter.
-     * @param stationid : The ID of the target station.
-     * @param slotid : The ID of the target slot in target station.
-     * @return A boolean value, True for after this operation, the operator is fined.
-     */
-    public boolean returnScooter(String userid,String scooterid,int stationid,int slotid) {
-    	boolean isFined=false;
-    	
-    	Scooter s=getScooterByID(scooterid);
-    	if(s!=null) {
-        	stations.get(stationid).putScooter(s.getID(), slotid);
-        	if(isOverDue(userid,scooterid)) {
-        		transactions.add(new Transaction(Transaction.TYPE_FINE,userid,Transaction.NAN_ID));
-        		isFined=true;
-        	}
-        	transactions.add(new Transaction(Transaction.TYPE_RETURN,userid,scooterid));
-        	if(isTodayUsageOverFlow(userid)) {
-        		transactions.add(new Transaction(Transaction.TYPE_FINE,userid,Transaction.NAN_ID));
-        		isFined=true;
-        	}
-    	}
-    	
-    	return isFined;
-    }
-    
-    /**
      * This method gets the state of a given station.
      * @param stationid : ID of the station, must be validated before.
      * @return A boolean array. Each represents a state of a single slot. 
@@ -262,14 +194,32 @@ public final class DataBase {
     }
     
     /**
-     * Take a scooter from a station. This will trigger transaction record.
-     * @param userid : The id of operator user.
-     * @param stationid : The id of target station.
-     * @param slotid : The target slot ID in the station, from 1 to {@link Station}.SCOOTERCOUNT-1. 
+     * Check whether a given user excess usage time TODAY.
+     * @param userid : The id of a given user.
+     * @return A boolean value. True for overdue, vice versa.
      */
-    public void takeScooter(String userid,int stationid,int slotid) {
-    	String s=stations.get(stationid).removeScooter(slotid);
-    	transactions.add(new Transaction(Transaction.TYPE_TAKE,userid,s));
+    public boolean isTodayUsageOverFlow(String userid) {
+    	long totalMin=0;
+    	LinkedList<Transaction> pending=new LinkedList<Transaction>();
+    	LocalDateTime now=LocalDateTime.now();
+    	for(Transaction t : transactions){
+    		if(t.getUserID().equals(userid) && t.isSameDateOf(now)) {
+    			if(t.isTake()) {
+    				pending.add(t);
+    			}
+    			else if(t.isReturn()) {
+    				Transaction selected=null;
+    				for(Transaction ts:pending) {
+    					if(ts.getScooterID().equals(t.getScooterID()))selected=ts;
+    				}
+    				if(selected!=null) {
+        				pending.remove(selected);
+        				totalMin+=Duration.between(selected.getDateTime(),t.getDateTime()).toMinutes();
+    				}
+    			}
+    		}
+    	}
+    	return totalMin>120;
     }
     
     /**
@@ -289,7 +239,7 @@ public final class DataBase {
     			}
     		}
     	}
-    	return sum>=0;
+    	return sum>0;
     }
     
     /***
@@ -338,30 +288,21 @@ public final class DataBase {
     		if(encoder!=null)encoder.close();
     	}
     }
-	
-	public static void main(String[] args) {
-		/*
-    	//check Email format 1@2.3
-    	System.out.println(User.checkEmail("1@2.3"));//true
-    	System.out.println(User.checkEmail("@2.3"));//false
-    	System.out.println(User.checkEmail("1@.3"));//false
-    	System.out.println(User.checkEmail("1@2."));//false
-    	//check QMID format with only 9 digits
-    	System.out.println(User.checkQMID("123456789"));//true
-    	System.out.println(User.checkQMID("1234567890"));//false
-    	System.out.println(User.checkQMID("abcdefghi"));//false
-    	System.out.println(User.checkQMID("12345678"));//false
-    	*/
-    	if(User.checkEmail("1@2.3")&&User.checkQMID("123456789")) {
-    		//DataBase db=DataBase.getCurrent();
-    		DataBase db=DataBase.getNew();
-    		db.initialize();
-    		db.regUser(new User("123456789","aaa","1@2.3"));
-    		db.putScooter(0,0,"aaa");
-    		db.takeScooter("123456789",0,0);
-    		db.returnScooter("123456789","aaa",0,1);
-    		System.out.println(db.userExists("123456789"));
-    		db.writeToFile();
-    	}
-	}
+    
+    /**
+     * Get the transactions stored in this database.
+     * @return A object typed {@link:LinkedList<Transaction>}, not null.
+     */
+    public LinkedList<Transaction> getTransactions(){
+    	return transactions;
+    }
+    
+    /**
+     * Get the station stored in this database by its ID.
+     * @param id : The ID of the target station.
+     * @return A object typed {@link:Station}, not null.
+     */
+    public Station getStationByID(int id){
+    	return stations.get(id);
+    }
 }
