@@ -1,5 +1,6 @@
 package gui;
 import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,7 +12,6 @@ import java.util.regex.Pattern;
 public class Manager_User_Frame extends JFrame implements ActionListener{
     JPanel line = new JPanel();
     JPanel search = new JPanel();
-    JPanel show_info = new JPanel();
     JPanel send_email = new JPanel();
 
     JButton dock = new JButton("Dock");
@@ -22,7 +22,10 @@ public class Manager_User_Frame extends JFrame implements ActionListener{
     JTextArea name_input = new JTextArea(2,20);
 
     JLabel name = new JLabel("Input an ID:");
-    JLabel showinfo = new JLabel("some information.....\r\nsome information...\r\nsome information...\r\nsome information...");
+
+    JTable table;
+
+    JScrollPane scrollpane = new JScrollPane();
 
     Font f = new Font("TimesRoman",0,20);
 
@@ -42,23 +45,26 @@ public class Manager_User_Frame extends JFrame implements ActionListener{
         line.setLayout(new FlowLayout(0));
         line.add(dock);
         line.add(user);
-        //line.add(spot);
-
-        //search.setSize(700,50);
+        
         search.setBounds(50,50,700,50);
         search.setLayout(new FlowLayout(0));
         search.add(name);
         search.add(name_input);
         search.add(confirm);
 
-        show_info.setSize(700,350);
-        showinfo.setSize(680,380);
-        showinfo.setBorder(BorderFactory.createLineBorder(Color.RED));
-        show_info.add(showinfo);
-
         send_email.setSize(700,50);
         send_email.setLayout(new FlowLayout());
         send_email.add(send);
+
+        Object[] columnNames = new Object[]{"Name","ID","Number of fines","Using time"};
+        Object[][] rowData = new Object[1][4];
+        table = new JTable(rowData,columnNames);
+        scrollpane.setBounds(50,100,700,350);
+        scrollpane.setViewportView(table);
+        table.setRowHeight(50);
+        DefaultTableCellRenderer r = new DefaultTableCellRenderer();
+        r.setHorizontalAlignment(JLabel.CENTER);
+        table.setDefaultRenderer(Object.class,r);
 
         dock.addActionListener(this);
         confirm.addActionListener(this);
@@ -66,7 +72,7 @@ public class Manager_User_Frame extends JFrame implements ActionListener{
 
         this.add(line);
         this.add(search);
-        this.add(show_info);
+        this.add(scrollpane);
         this.add(send_email);
         this.setVisible(true);
     }
