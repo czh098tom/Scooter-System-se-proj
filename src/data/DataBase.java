@@ -306,6 +306,20 @@ public final class DataBase {
     }
     
     /**
+     * Get weekly report data.
+     * @return An object typed {@link ArrayList<WeeklyReportData>}, not null;
+     */
+    public ArrayList<WeeklyReportData> getReportData(){
+    	ArrayList<WeeklyReportData> list=new ArrayList<>();
+    	String id;
+    	for(User u:users) {
+    		id=u.getId();
+    		list.add(new WeeklyReportData(u.getName(),id,sumWeeklyUsage(id),sumFine(id)));
+    	}
+    	return list;
+    }
+    
+    /**
      * Write current {@link DataBase} to file.
      */
     public void writeToFile() {
