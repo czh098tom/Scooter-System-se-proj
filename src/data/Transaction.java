@@ -2,12 +2,19 @@ package data;
 
 import java.util.*;
 import java.time.*;
+import java.time.temporal.WeekFields;
 
 /**
  * Store data of a transaction.
  * @author ZIHAO CHEN
  */
 public class Transaction {
+	
+	/**
+	 * Store week indicator.
+	 */
+	public static WeekFields weekFields = WeekFields.of(DayOfWeek.MONDAY,1);
+	
 	/**
 	 * Store the default invalid ID of scooter ID or user ID
 	 */
@@ -185,6 +192,17 @@ public class Transaction {
     public boolean isSameDateOf(LocalDateTime t) {
     	LocalDateTime date=getDateTime();
     	return t.getDayOfYear()==date.getDayOfYear() && t.getYear()==date.getYear();
+    }
+    
+    /**
+     * Check whether the transaction happens at the same week of a given date.
+     * @param t : The given date.
+     * @return A boolean value, True for same, vice versa.
+     */
+    public boolean isSameWeekOf(LocalDateTime t) {
+    	LocalDateTime date=getDateTime();
+    	return t.get(weekFields.weekOfYear())==date.get(weekFields.weekOfYear())
+    			&& t.getYear()==date.getYear();
     }
     
     public static void main(String[] args) {

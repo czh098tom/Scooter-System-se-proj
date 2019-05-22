@@ -166,6 +166,23 @@ public final class DataBase {
     }
     
     /**
+     * Get the total fine count in this week.
+     * @param userid : The ID of a given user.
+     * @return An integer value of fine count.
+     */
+    public int sumFine(String userid) {
+    	int count=0;
+    	LocalDateTime now=LocalDateTime.now();
+    	for(Transaction t : transactions) {
+    		if(t.getUserID().equals(userid) && t.isSameDateOf(now)) {
+    			if(t.isFine())count++;
+    			//else if(t.isPayFine())count--;
+    		}
+    	}
+    	return count;
+    }
+    
+    /**
      * Get a scooter object by its ID.
      * @param scooterid : The ID of target scooter.
      * @return A object with type {@link Scooter}, null if not find.
@@ -220,6 +237,35 @@ public final class DataBase {
     		}
     	}
     	return totalMin>120;
+    }
+    
+    /**
+     * Get the total usage minutes in this week.
+     * @param userid : The id of a given user.
+     * @return A long value in minutes.
+     */
+    public long sumWeeklyUsage(String userid) {
+    	long totalMin=0;
+    	LinkedList<Transaction> pending=new LinkedList<Transaction>();
+    	LocalDateTime now=LocalDateTime.now();
+    	for(Transaction t : transactions){
+    		if(t.getUserID().equals(userid) && t.isSameWeekOf(now)) {
+    			if(t.isTake()) {
+    				pending.add(t);
+    			}
+    			else if(t.isReturn()) {
+    				Transaction selected=null;
+    				for(Transaction ts:pending) {
+    					if(ts.getScooterID().equals(t.getScooterID()))selected=ts;
+    				}
+    				if(selected!=null) {
+        				pending.remove(selected);
+        				totalMin+=Duration.between(selected.getDateTime(),t.getDateTime()).toMinutes();
+    				}
+    			}
+    		}
+    	}
+    	return totalMin;
     }
     
     /**
