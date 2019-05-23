@@ -9,7 +9,7 @@ public class TakeContract {
 	/**
 	 * Store ID of the user.
 	 */
-	private final String userID;
+	private final User user;
 	/**
 	 * Store the target station.
 	 */
@@ -26,9 +26,10 @@ public class TakeContract {
      * @param slotID : The target slot ID in the station, from 1 to {@link Station}.SCOOTERCOUNT-1. 
 	 */
 	public TakeContract(String userID, int stationID, int slotID) {
-		this.station=DataBase.getCurrent().getStationByID(stationID);
+		DataBase db=DataBase.getCurrent();
+		this.station=db.getStationByID(stationID);
 		this.slotID=slotID;
-		this.userID=userID;
+		this.user=db.getUserByID(userID);
 	}
 	
     /**
@@ -36,7 +37,7 @@ public class TakeContract {
      */
     public void takeScooter() {
     	String s=station.removeScooter(slotID);
-    	DataBase.getCurrent().getTransactions().add(new Transaction(Transaction.TYPE_TAKE,userID,s));
+    	DataBase.getCurrent().getTransactions().add(new Transaction(Transaction.TYPE_TAKE,user.getId(),s));
     	DataBase.getCurrent().writeToFile();
     }
 }

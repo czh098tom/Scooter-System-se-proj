@@ -28,7 +28,7 @@ public class ReturnContract {
 	/**
 	 * Store the target user ID.
 	 */
-	private final String userID;
+	private final User user;
 	/**
 	 * Store the target scooter.
 	 */
@@ -51,7 +51,7 @@ public class ReturnContract {
 	 */
 	public ReturnContract(String userID, int stationID, int slotID) {
 		DataBase db=DataBase.getCurrent();
-		this.userID=userID;
+		this.user=db.getUserByID(userID);
 		transactions=db.getTransactions();
 		this.scooter=db.getScooterByID(FurtherestTaking());
 		this.station=db.getStationByID(stationID);
@@ -65,7 +65,7 @@ public class ReturnContract {
     private String FurtherestTaking() {
     	ArrayList<String> pendingID=new ArrayList<>();
     	for(Transaction u:transactions) {
-    		if(u.getUserID().equals(userID)) {
+    		if(u.getUserID().equals(user.getId())) {
     			if(u.isTake()) {
     				pendingID.add(u.getScooterID());
     			}
@@ -94,12 +94,12 @@ public class ReturnContract {
     	if(scooter!=null) {
         	station.putScooter(scooter.getID(), slotID);
         	if(isOverDue()) {
-        		transactions.add(new Transaction(Transaction.TYPE_FINE,userID,Transaction.NAN_ID));
+        		transactions.add(new Transaction(Transaction.TYPE_FINE,user.getId(),Transaction.NAN_ID));
         		isFined=CURRENT_OVERDUE;
         	}
-        	transactions.add(new Transaction(Transaction.TYPE_RETURN,userID,scooter.getID()));
-        	if(DataBase.getCurrent().isTodayUsageOverFlow(userID)) {
-        		transactions.add(new Transaction(Transaction.TYPE_FINE,userID,Transaction.NAN_ID));
+        	transactions.add(new Transaction(Transaction.TYPE_RETURN,user.getId(),scooter.getID()));
+        	if(DataBase.getCurrent().isTodayUsageOverFlow(user.getId())) {
+        		transactions.add(new Transaction(Transaction.TYPE_FINE,user.getId(),Transaction.NAN_ID));
         		isFined=TODAY_OVERFLOW;
         	}
     	}
@@ -115,7 +115,7 @@ public class ReturnContract {
     private boolean isOverDue() {
     	Transaction lastwithsameid=null;
     	for(Transaction t : transactions){
-    		if(t.getUserID().equals(userID) && t.getScooterID().equals(scooter.getID())
+    		if(t.getUserID().equals(user.getId()) && t.getScooterID().equals(scooter.getID())
     				&& t.isTake())lastwithsameid=t;
     	}
     	if(lastwithsameid==null) {
