@@ -9,12 +9,12 @@ import data.User;
 /**
  * @author Jiansen Song
  * */
-public class TakeRetIDFrame extends StateFrame {
+public class StationInputIDFrame extends StateFrame {
 	private JTextField prompt1=new JTextField("Please enter your QM number:");
 	private JTextField qmID=new JTextField();
 	private JButton submit=new JButton("SUBMIT");
 	
-	protected TakeRetIDFrame(User_Interface parent) {
+	protected StationInputIDFrame(StationEntryFrame parent) {
 		super(parent);
 		super.setLayout(null);
 		super.setResizable(false);
@@ -33,10 +33,10 @@ public class TakeRetIDFrame extends StateFrame {
 			DataBase data=DataBase.getCurrent();
 			if(User.checkQMID(id)&&data.userExists(id)) {
 				parent.setUserID(id);
-				return new TakeRetCHFrame(parent);
+				return new ChooseTakeOrReturnFrame(parent);
 			}else {
 				JOptionPane.showMessageDialog(this, "User does not exist."); 
-				return TakeRetIDFrame.this;
+				return StationInputIDFrame.this;
 			}
 		});
 		

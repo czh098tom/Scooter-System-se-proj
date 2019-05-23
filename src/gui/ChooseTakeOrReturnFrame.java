@@ -7,12 +7,12 @@ import javax.swing.JOptionPane;
 /**
  * @author Jiansen Song
  * */
-public class TakeRetCHFrame extends StateFrame{
+public class ChooseTakeOrReturnFrame extends StateFrame{
 	JLabel friendlyMessage=new JLabel("Welcome to use the scooter-sharing system",JLabel.CENTER);
 	JButton take=new JButton("Take");
 	JButton ret=new JButton("Return");
 	
-	protected TakeRetCHFrame(User_Interface parent) {
+	protected ChooseTakeOrReturnFrame(StationEntryFrame parent) {
 		super(parent);
 		super.setResizable(false);
 		super.setLayout(null);
@@ -29,33 +29,33 @@ public class TakeRetCHFrame extends StateFrame{
 		super.register(take, ()->
 		{
 			if(DataBase.getCurrent().isUserTaking(parent.getUserID())) {
-				JOptionPane.showMessageDialog(TakeRetCHFrame.this
+				JOptionPane.showMessageDialog(ChooseTakeOrReturnFrame.this
 						, "You are currently taking a scooter! Please return first.");
-				return TakeRetCHFrame.this;
+				return ChooseTakeOrReturnFrame.this;
 			}
 			if(DataBase.getCurrent().isUnpaid(parent.getUserID())) {
-				JOptionPane.showMessageDialog(TakeRetCHFrame.this
+				JOptionPane.showMessageDialog(ChooseTakeOrReturnFrame.this
 						, "You are currently being fined! Please pay first.");
-				return TakeRetCHFrame.this;
+				return ChooseTakeOrReturnFrame.this;
 			}
 			if(DataBase.getCurrent().isTodayUsageOverFlow(parent.getUserID())) {
-				JOptionPane.showMessageDialog(TakeRetCHFrame.this
+				JOptionPane.showMessageDialog(ChooseTakeOrReturnFrame.this
 						, "You are currently overusing this system! Please come next day.");
-				return TakeRetCHFrame.this;
+				return ChooseTakeOrReturnFrame.this;
 			}
-			return new TakeFrame(parent);
+			return new TakeChooseSlotFrame(parent);
 		});
 		super.register(ret, ()->
 		{
 			if(!DataBase.getCurrent().isUserTaking(parent.getUserID())) {
-				JOptionPane.showMessageDialog(TakeRetCHFrame.this
+				JOptionPane.showMessageDialog(ChooseTakeOrReturnFrame.this
 						, "You are currently not taking a scooter!");
-				return TakeRetCHFrame.this;
+				return ChooseTakeOrReturnFrame.this;
 			}
-			return new ReturnFrame(parent);
+			return new ReturnChooseSlotFrame(parent);
 		});
 		
-		super.registerClosing(()->new TakeRetIDFrame(parent));
+		super.registerClosing(()->new StationInputIDFrame(parent));
 		//super.setVisible(true);
 	}
 }

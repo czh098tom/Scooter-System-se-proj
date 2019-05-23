@@ -1,11 +1,11 @@
 package gui;
 
-public class User_Interface extends StateManager {
+public class StationEntryFrame extends StateManager {
 	private int dockStationID;
 	private int slotID;
 	private String userID;
 	
-	public User_Interface(int id) {
+	public StationEntryFrame(int id) {
 		dockStationID=id;
 	}
 	
@@ -30,7 +30,7 @@ public class User_Interface extends StateManager {
 	}
 	
 	public static void main(String[] args) {
-		User_Interface dockStation0=new User_Interface(0);
-		dockStation0.setState(new TakeRetIDFrame(dockStation0));
+		StationEntryFrame dockStation0=new StationEntryFrame(0);
+		dockStation0.setState(new StationInputIDFrame(dockStation0));
 	}
 }

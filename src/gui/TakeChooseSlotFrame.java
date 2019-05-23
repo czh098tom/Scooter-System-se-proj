@@ -13,11 +13,11 @@ import data.Station;
 /**
  * @author Jiansen Song
  * */
-public class TakeFrame extends StateFrame{
+public class TakeChooseSlotFrame extends StateFrame{
 	private static JLabel timer=new JLabel("Only one minute can be used to take the scooter",JLabel.CENTER);
 	private JButton[] slot=new JButton[Station.SCOOTERCOUNT];
 	
-	protected TakeFrame(User_Interface parent) {
+	protected TakeChooseSlotFrame(StationEntryFrame parent) {
 		super(parent);
 		super.setLayout(null);
 		super.setResizable(false);
@@ -37,6 +37,6 @@ public class TakeFrame extends StateFrame{
 			});
 			slot[i].setBounds(i*93, 200, 93, 100);
 		}
-		super.registerClosing(()->new TakeRetCHFrame(parent));
+		super.registerClosing(()->new ChooseTakeOrReturnFrame(parent));
 	}
 }

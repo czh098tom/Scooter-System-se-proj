@@ -17,7 +17,7 @@ public class TakeScooterFrame extends StateFrame{
 	private static JLabel timer=new JLabel("",JLabel.CENTER);
 	private JButton ok=new JButton("Ok");
 	private JButton cancel=new JButton("Cancel");
-	public TakeScooterFrame(User_Interface parent){
+	public TakeScooterFrame(StationEntryFrame parent){
 		super(parent);
 		super.setLayout(null);
 		super.setResizable(false);
@@ -29,22 +29,25 @@ public class TakeScooterFrame extends StateFrame{
 		ok.addActionListener(this);
 		super.register(ok, ()->{
 			new TakeContract(parent.getUserID(), parent.getStationID(), parent.getSlotID()).takeScooter();
-			return new TakeRetIDFrame(parent); 
+			return new StationInputIDFrame(parent); 
 		});
 		super.getContentPane().add(cancel);
 		cancel.setBounds(500, 250, 200, 100);
 		cancel.addActionListener(this);
-		super.register(cancel, ()->new TakeFrame(parent));
+		super.register(cancel, ()->new TakeChooseSlotFrame(parent));
 		super.registerClosing(null);
 		super.setVisible(true);
-		new TimerThread().start();
+		new TimerThread(this).start();
 	}
 	public static void main(String[] args) {
-		User_Interface dockStation1=new User_Interface(1);
+		StationEntryFrame dockStation1=new StationEntryFrame(1);
 		dockStation1.setState(new TakeScooterFrame(dockStation1));	
 	}
 	class TimerThread extends Thread{
-		
+		private TakeScooterFrame parent;
+		public TimerThread(TakeScooterFrame parent) {
+			this.parent=parent;
+		}
 		public void run() {
 			int countDown=60;
 			Timer timer=new Timer();
@@ -63,6 +66,7 @@ public class TakeScooterFrame extends StateFrame{
 			}
 			timer.cancel();
 			TakeScooterFrame.timer.setText("Time runs out");
+			parent.ok.setEnabled(false);
 		}
 	
 	}
