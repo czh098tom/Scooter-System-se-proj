@@ -116,15 +116,15 @@ public class Manager_User_Frame extends JFrame implements ActionListener{
             if(!ismatch) name_input.setText("Wrong format. Must be 9 digits.");
             else {
             	name_input.setText("");
-            	model.addRow(new Object[] {WeeklyReportData.getUserName(id),id,WeeklyReportData.getFine(id),WeeklyReportData.getUserUsage(id)});
+            	model.addRow(db.getReportDataOf(id).toObjList());
             }
         }
         //Send emails for all users
         if(e.getSource()==send){
-        	int size = WeeklyReportData.getUsersSize();
+        	int size = db.getUsers().size();
         	for(int i=0;i<size;i++) {
-        		String path = "C:\\Users\\YSY\\Desktop\\软件工程\\paperprotype\\"+WeeklyReportData.getUserEmail(id)+".txt";
-        		String content = WeeklyReportData.toString(id);
+        		String path = "C:\\Users\\YSY\\Desktop\\软件工程\\paperprotype\\"+WeeklyReportData.getEmail(i)+".txt";
+        		String content = WeeklyReportData.toString(i);
         		create_file(path);
                 write_file(content,path);
         	} 

@@ -316,7 +316,7 @@ public final class DataBase {
     	for(User u:users) {
     		id=u.getId();
     		if(id.equals(userid)) {
-        		list.add(new WeeklyReportData(u.getName(),id,sumWeeklyUsage(id),sumFine(id)));
+        		list.add(new WeeklyReportData(u.getName(),id,sumWeeklyUsage(id),sumFine(id),u.getEmail()));
     		}
     	}
     	if(list.size()>0) {
@@ -336,7 +336,7 @@ public final class DataBase {
     	String id;
     	for(User u:users) {
     		id=u.getId();
-    		list.add(new WeeklyReportData(u.getName(),id,sumWeeklyUsage(id),sumFine(id)));
+    		list.add(new WeeklyReportData(u.getName(),id,sumWeeklyUsage(id),sumFine(id),u.getEmail()));
     	}
     	return list;
     }

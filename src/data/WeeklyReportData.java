@@ -7,10 +7,11 @@ public class WeeklyReportData {
 	 * Store user ID and name in report.
 	 */
 	
-	String name;
-	String id;
-	long sumWeeklyUsage;
-	int sumFine;
+	static String name;
+	static String id;
+	static String email;
+	static long usage;
+	static int fine;
 	
 	/**
 	 * An empty constructor
@@ -26,11 +27,12 @@ public class WeeklyReportData {
 	 * @param sumWeeklyUsage
 	 * @param sumFine
 	 */
-	public WeeklyReportData(String name, String id, long sumWeeklyUsage, int sumFine) {
+	public WeeklyReportData(String name, String id, long usage, int fine,String email) {
 		this.name = name;
 		this.id = id;
-		this.sumWeeklyUsage = sumWeeklyUsage;
-		this.sumFine = sumFine;
+		this.usage = usage;
+		this.fine = fine;
+		this.email = email;
 	}
 
 	/**
@@ -38,61 +40,28 @@ public class WeeklyReportData {
 	 * @param id : a given user's id
 	 * @return it will return several lines of user information (String)
 	 */
-	public static String toString(String id) {
-		return "User name:"+WeeklyReportData.getUserName(id)+"\\r\\nUser ID:"+id+"\\r\\nTotal using time:"+WeeklyReportData.getUserUsage(id)+"\\r\\nIf any fine:"+WeeklyReportData.getFine(id)+"\\r\\n";
+	public static String toString(int i) {
+		DataBase db = DataBase.getCurrent();
+		LinkedList<User> users = db.getUsers();
+		return "User name:"+users.get(i).getName()+"\\r\\nUser ID:"+users.get(i).getId()+"\\r\\nTotal using time:"+db.sumWeeklyUsage(id)+"\\r\\nIf any fine:"+db.sumFine(id)+"\\r\\n";
 	}
 	
 	/**
-	 * Get the user's name with given userid
-	 * @param id : a given user's id
-	 * @return it returns a name (String)
+	 * Generate an object list for JTable
+	 * @return return an object list of weeklyreportdata
 	 */
-	public static String getUserName(String id) {
-		DataBase db=DataBase.getCurrent();
-		User user = new User();
-    	user = db.getUserByID(id);
-    	return user.getName();
-    }
+	public static Object[] toObjList() {
+		return new Object[] {name,id,usage,fine};
+	}
 	
 	/**
-	 * Get the user's total using time in minutes with a given userid 
-	 * @param id : a given user's id
-	 * @return it returns a time value (long)
+	 * Get the i-th user's email address
+	 * @param i
+	 * @return
 	 */
-    public static long getUserUsage(String id) {
-    	DataBase db=DataBase.getCurrent();
-    	return db.sumWeeklyUsage(id);
-    }
-    
-    /**
-     * Get the email address with a given user id
-     * @param id : a given user id
-     * @return it returns a email address (String)
-     */
-    public static String getUserEmail(String id) {
-    	DataBase db=DataBase.getCurrent();
-    	User user = new User();
-    	user = db.getUserByID(id);
-    	return user.getEmail();
-    }
-    
-    /**
-     * Get the number of total users
-     * @return it returns an integer (int)
-     */
-    public static int getUsersSize() {
-    	DataBase db=DataBase.getCurrent();
-    	LinkedList<User> users = db.getUsers();
-    	return users.size();
-    }
-    
-    /**
-     * Get the fine of a user
-     * @param id : a given user id
-     * @return it returns an integer (int)
-     */
-    public static int getFine(String id) {
-    	DataBase db=DataBase.getCurrent();
-    	return db.sumFine(id);
-    }
+	public static String getEmail(int i) {
+		DataBase db = DataBase.getCurrent();
+		LinkedList<User> users = db.getUsers();
+		return users.get(i).getEmail();
+	}
 }
