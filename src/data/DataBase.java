@@ -387,4 +387,12 @@ public final class DataBase {
     public Station getStationByID(int id){
     	return stations.get(id);
     }
+    
+    /**Author : YSY
+     * This is a 'users' linked list getter
+     * @return the linked list object 'users'
+     */
+    public LinkedList<User> getUsers() {
+    	return users;
+    }
 }

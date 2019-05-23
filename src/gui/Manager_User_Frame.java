@@ -1,6 +1,11 @@
 package gui;
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+
+import data.DataBase;
+import data.WeeklyReportData;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -9,8 +14,15 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.regex.Pattern;
 
+/**
+ * Another GUI for manager to manage user information, including searching user info and sending emails
+ * @author YSY
+ *
+ */
 public class Manager_User_Frame extends JFrame implements ActionListener{
-    JPanel line = new JPanel();
+
+	private static final long serialVersionUID = 1L;
+	JPanel line = new JPanel();
     JPanel search = new JPanel();
     JPanel send_email = new JPanel();
 
@@ -30,8 +42,12 @@ public class Manager_User_Frame extends JFrame implements ActionListener{
     Font f = new Font("TimesRoman",0,20);
 
     String id;
+	private DefaultTableModel model;
 
-    //JButton spot = new JButton("Spot");
+    /**
+     * A constructor, makes a user management GUI
+     * which can search for user data and send emails.
+     */
     public Manager_User_Frame(){
         name.setFont(f);
         name_input.setFont(f);
@@ -56,9 +72,11 @@ public class Manager_User_Frame extends JFrame implements ActionListener{
         send_email.setLayout(new FlowLayout());
         send_email.add(send);
 
+        //Generating a searching table for manager
         Object[] columnNames = new Object[]{"Name","ID","Number of fines","Using time"};
         Object[][] rowData = new Object[1][4];
-        table = new JTable(rowData,columnNames);
+        DefaultTableModel model = new DefaultTableModel(rowData,columnNames);
+        table = new JTable(model);
         scrollpane.setBounds(50,100,700,350);
         scrollpane.setViewportView(table);
         table.setRowHeight(50);
@@ -82,27 +100,42 @@ public class Manager_User_Frame extends JFrame implements ActionListener{
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) { //Frame swapping with Manager_Dock_Frame
+    public void actionPerformed(ActionEvent e) { 
+    	DataBase db=DataBase.getCurrent();
+    	//Frame swapping with Manager_Dock_Frame
         if(e.getSource()==dock){
             setVisible(false);
             new Manager_Dock_Frame().setVisible(true);
             dispose();
         }
+        //Input legality check, using regular expression, and confirm search request
         if(e.getSource()==confirm){
             id = name_input.getText();
             String pattern = "^\\d{9}$";
             boolean ismatch = Pattern.matches(pattern,id);
             if(!ismatch) name_input.setText("Wrong format. Must be 9 digits.");
-            else name_input.setText("");
+            else {
+            	name_input.setText("");
+            	model.addRow(new Object[] {WeeklyReportData.getUserName(id),id,WeeklyReportData.getFine(id),WeeklyReportData.getUserUsage(id)});
+            }
         }
+        //Send emails for all users
         if(e.getSource()==send){
-            String path = "C:\\Users\\YSY\\Desktop\\软件工程\\paperprotype\\a.txt";
-            create_file(path);
-            String content = "User name:\r\nUser ID:\r\nTotal using time:\r\nIf any fine:\r\n";
-            write_file(content,path);
+        	int size = WeeklyReportData.getUsersSize();
+        	for(int i=0;i<size;i++) {
+        		String path = "C:\\Users\\YSY\\Desktop\\软件工程\\paperprotype\\"+WeeklyReportData.getUserEmail(id)+".txt";
+        		String content = WeeklyReportData.toString(id);
+        		create_file(path);
+                write_file(content,path);
+        	} 
         }
     }
 
+    /**
+     * Create a .txt file as an email
+     * @param path : the directory of the file
+     * @return flag : whether a .txt file is successfully created
+     */
     public static boolean create_file(String path){
         boolean flag = false;
         File email = new File(path);
@@ -116,6 +149,13 @@ public class Manager_User_Frame extends JFrame implements ActionListener{
         }
         return flag;
     }
+    
+    /**
+     * Write information into an existing .txt file. If there is none, create one
+     * @param content : the information content that is going to be written
+     * @param path : the directory of the file
+     * @return flag : whether the file is successfully written 
+     */
     public static boolean write_file(String content, String path){
         boolean flag = false;
         File email = new File(path);

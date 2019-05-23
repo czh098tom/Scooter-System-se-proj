@@ -3,8 +3,15 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
+/**
+ * GUI for manager to monitor current docking situation.
+ * @author YSY
+ *
+ */
 public class Manager_Dock_Frame extends JFrame implements ActionListener{
-    static int[][] array = new int[3][8];
+
+	private static final long serialVersionUID = 1L;
+	static int[][] array = new int[3][8];
     int i,j;
 
     JPanel line = new JPanel();
@@ -15,13 +22,16 @@ public class Manager_Dock_Frame extends JFrame implements ActionListener{
 
     JButton dock = new JButton("Dock");
     JButton user = new JButton("User");
-    //JButton spot = new JButton("Spot");
 
     JLabel A = new JLabel("Station A:                           ");
     JLabel B = new JLabel("Station B:                           ");
     JLabel C = new JLabel("Station C:                           ");
     JLabel notices = new JLabel("White:available      Grey:unlocked       Black:Empty");
-
+    
+    /**
+     * A constructor, makes a docking GUI frame
+     * Including all three docking stations, and the status of each slot
+     */
     public Manager_Dock_Frame() {
         this.setTitle("Docking Management System");
         this.setSize(700,500);
@@ -31,7 +41,6 @@ public class Manager_Dock_Frame extends JFrame implements ActionListener{
         line.setLayout(new FlowLayout(0));
         line.add(dock);
         line.add(user);
-        //line.add(spot);
 
         user.addActionListener(this);
 
@@ -114,12 +123,12 @@ public class Manager_Dock_Frame extends JFrame implements ActionListener{
                 {0, 2, 1, 2, 0, 2, 0, 2},
                 {0, 0, 1, 2, 0, 0, 0, 2}};
         Manager_Dock_Frame MF = new Manager_Dock_Frame();
-        //MF.getContentPane().remove(notification);
         MF.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) { //Frame swapping with Manager_User_Frame
+    public void actionPerformed(ActionEvent e) { 
+    	//Frame swapping with Manager_User_Frame
         if(e.getSource()==user){
             setVisible(false);
             new Manager_User_Frame().setVisible(true);
