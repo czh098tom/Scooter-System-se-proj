@@ -17,15 +17,6 @@ public final class DataBase {
 	public static final ZoneOffset LOCAL_TIME_ZONE_OFFSET=OffsetDateTime.now().getOffset();
 	
 	/**
-	 * Indicate current usage is overdue.
-	 */
-	public static final int CURRENT_OVERDUE=1;
-	/**
-	 * Indicate today usage is overflow.
-	 */
-	public static final int TODAY_OVERFLOW=2;
-	
-	/**
 	 * Store data of users.
 	 */
     private LinkedList<User> users=new LinkedList<>();

@@ -39,12 +39,12 @@ public class ReturnFrame extends StateFrame {
 			super.register(slot[i], ()->{
 				switch(new ReturnContract(parent.getUserID(), parent.getStationID(), k)
 						.returnScooter()) {
-						case DataBase.CURRENT_OVERDUE:
+						case ReturnContract.CURRENT_OVERDUE:
 							JOptionPane.showMessageDialog(ReturnFrame.this
 									, "Successfully returned. But you are fined "
 									+"due to returning too late this time!");
 							break;
-						case DataBase.TODAY_OVERFLOW:
+						case ReturnContract.TODAY_OVERFLOW:
 							JOptionPane.showMessageDialog(ReturnFrame.this
 									, "Successfully returned. But you are fined "
 									+"due to overusing the system today!");
