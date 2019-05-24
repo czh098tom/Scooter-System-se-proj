@@ -7,16 +7,24 @@ import java.util.concurrent.TimeUnit;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 
-import data.DataBase;
 import data.TakeContract;
-
 /**
+ * It's boundary class, let users to take scooter at any slot
+ * It's an inheritance from the StateFrame class
  * @author Jiansen Song
- * */
+ * @version 4.0
+ */
 public class TakeScooterFrame extends StateFrame{
+	/**Timer to alarm the user*/
 	private static JLabel timer=new JLabel("",JLabel.CENTER);
+	/**Confirm to take the scooter*/
 	private JButton ok=new JButton("Ok");
+	/**Confirm not to take the scooter*/
 	private JButton cancel=new JButton("Cancel");
+	/**
+	 * Initial the TakeScooterFrame with its parent
+	 * @param parent : who is the frame belongs to
+	 */
 	public TakeScooterFrame(StationEntryFrame parent){
 		super(parent);
 		super.setLayout(null);
@@ -43,6 +51,12 @@ public class TakeScooterFrame extends StateFrame{
 		StationEntryFrame dockStation1=new StationEntryFrame(1);
 		dockStation1.setState(new TakeScooterFrame(dockStation1));	
 	}
+	/**
+	 * It's entity class, record the time
+	 * It's an inheritance from the Thread class
+	 * @author Jiansen Song
+	 * @version 3.0
+	 */
 	class TimerThread extends Thread{
 		private TakeScooterFrame parent;
 		public TimerThread(TakeScooterFrame parent) {

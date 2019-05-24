@@ -10,16 +10,25 @@ import java.util.concurrent.TimeUnit;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-/*Return frame*/
 /**
+ * It's boundary class, let users to return a scooter
+ * It's an inheritance from the StateFrame class
  * @author Jiansen Song
- * 
- * */
+ * @version 4.0
+ */
 public class ReturnChooseSlotFrame extends StateFrame {
+	/**To notify each slot*/
 	private JButton[] slot=new JButton[Station.SCOOTERCOUNT];
+	/**Show which slot has been chose*/
 	private JLabel whichSlot=new JLabel("",JLabel.CENTER);
+	/**Timer to alarm the user*/
 	private static JLabel timer=new JLabel("",JLabel.CENTER);
+	/**Confirm not to return the scooter*/
 	private JButton cancel=new JButton("Cancel");
+	/**
+	 * Initial the ReturnChooseSlotFrame with its parent
+	 * @param parent : who is the frame belongs to
+	 */
 	public ReturnChooseSlotFrame(StationEntryFrame parent) {
 		super(parent);
 		super.setLayout(null);
@@ -63,10 +72,14 @@ public class ReturnChooseSlotFrame extends StateFrame {
 		super.register(cancel, ()->new ChooseTakeOrReturnFrame(parent));
 		
 		super.registerClosing(()->new ChooseTakeOrReturnFrame(parent));
-		//super.setVisible(true);
 		new TimerThread(this).start();
 	}
-	
+	/**
+	 * It's entity class, record the time
+	 * It's an inheritance from the Thread class
+	 * @author Jiansen Song
+	 * @version 3.0
+	 */
 	class TimerThread extends Thread{
 		private ReturnChooseSlotFrame parent;
 		public TimerThread(ReturnChooseSlotFrame parent) {

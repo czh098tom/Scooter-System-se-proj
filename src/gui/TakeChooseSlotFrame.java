@@ -1,22 +1,24 @@
 package gui;
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.concurrent.TimeUnit;
-
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 
 import data.DataBase;
 import data.Station;
-/*Take frame*/
 /**
+ * It's boundary class, let users to choose a slot
+ * It's an inheritance from the StateFrame class
  * @author Jiansen Song
- * */
+ * @version 3.0
+ */
 public class TakeChooseSlotFrame extends StateFrame{
+	/**Show friendly message: Only one minute can be used to take the scooter*/
 	private static JLabel timer=new JLabel("Only one minute can be used to take the scooter",JLabel.CENTER);
+	/**To notify each slot*/
 	private JButton[] slot=new JButton[Station.SCOOTERCOUNT];
-	
+	/**
+	 * Initial the TakeChooseSlotFrame with its parent
+	 * @param parent : who is the frame belongs to
+	 */
 	protected TakeChooseSlotFrame(StationEntryFrame parent) {
 		super(parent);
 		super.setLayout(null);

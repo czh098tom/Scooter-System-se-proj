@@ -7,13 +7,22 @@ import javax.swing.JTextField;
 import data.DataBase;
 import data.User;
 /**
+ * It's boundary class, let users to enter their ID
+ * It's an inheritance from the StateFrame class
  * @author Jiansen Song
- * */
+ * @version 3.0
+ */
 public class StationInputIDFrame extends StateFrame {
+	/**Show friendly message: Please enter your QM number*/
 	private JTextField prompt1=new JTextField("Please enter your QM number:");
+	/**Get the QM ID of user*/
 	private JTextField qmID=new JTextField();
+	/**Check the ID whether is valid*/
 	private JButton submit=new JButton("SUBMIT");
-	
+	/**
+	 * Initial the StationInputIDFrame with its parent
+	 * @param parent : who is the frame belongs to
+	 */
 	protected StationInputIDFrame(StationEntryFrame parent) {
 		super(parent);
 		super.setLayout(null);
@@ -41,7 +50,5 @@ public class StationInputIDFrame extends StateFrame {
 		});
 		
 		super.registerClosing(null);
-		//super.setVisible(true);
-	
 	}
 }

@@ -1,17 +1,27 @@
 package gui;
 
-import data.DataBase;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+
+import data.DataBase;
 /**
+ * It's boundary class, let users to take or return the scooter
+ * It's an inheritance from the StateFrame class
  * @author Jiansen Song
- * */
+ * @version 3.0
+ */
 public class ChooseTakeOrReturnFrame extends StateFrame{
+	/**Show friendly message: Welcome to use the scooter-sharing system*/
 	JLabel friendlyMessage=new JLabel("Welcome to use the scooter-sharing system",JLabel.CENTER);
+	/**Confirm to take the scooter*/
 	JButton take=new JButton("Take");
+	/**Confirm to return the scooter*/
 	JButton ret=new JButton("Return");
-	
+	/**
+	 * Initial the ChooseTakeOrReturnFrame with its parent
+	 * @param parent : who is the frame belongs to
+	 */
 	protected ChooseTakeOrReturnFrame(StationEntryFrame parent) {
 		super(parent);
 		super.setResizable(false);
@@ -56,6 +66,5 @@ public class ChooseTakeOrReturnFrame extends StateFrame{
 		});
 		
 		super.registerClosing(()->new StationInputIDFrame(parent));
-		//super.setVisible(true);
 	}
 }
