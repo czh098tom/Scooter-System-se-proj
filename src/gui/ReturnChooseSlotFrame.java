@@ -3,6 +3,7 @@ import data.DataBase;
 import data.ReturnContract;
 import data.Station;
 
+import java.awt.Color;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
@@ -92,6 +93,9 @@ public class ReturnChooseSlotFrame extends StateFrame {
 				int i=0;
 				public void run() {
 					ReturnChooseSlotFrame.timer.setText(String.format("Only %d seconds left", countDown-i));
+					if(i%2==0) {
+						parent.cancel.setBackground(Color.RED);
+					}else parent.cancel.setBackground(null);
 					i++;
 				}
 			},0,1000);

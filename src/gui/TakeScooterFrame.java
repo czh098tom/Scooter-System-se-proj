@@ -1,5 +1,6 @@
 package gui;
 
+import java.awt.Color;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
@@ -69,6 +70,9 @@ public class TakeScooterFrame extends StateFrame{
 				int i=0;
 				public void run() {
 					TakeScooterFrame.timer.setText(String.format("Only %d seconds left", countDown-i));
+					if(i%2==0) {
+						parent.ok.setBackground(Color.RED);
+					}else parent.ok.setBackground(null);
 					i++;
 				}
 			},0,1000);
