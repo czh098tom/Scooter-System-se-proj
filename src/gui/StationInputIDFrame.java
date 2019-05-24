@@ -23,7 +23,7 @@ public class StationInputIDFrame extends StateFrame {
 	 * Initial the StationInputIDFrame with its parent
 	 * @param parent : who is the frame belongs to
 	 */
-	protected StationInputIDFrame(StationEntryFrame parent) {
+	protected StationInputIDFrame(StationManager parent) {
 		super(parent);
 		super.setLayout(null);
 		super.setResizable(false);

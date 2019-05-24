@@ -19,7 +19,7 @@ public class TakeChooseSlotFrame extends StateFrame{
 	 * Initial the TakeChooseSlotFrame with its parent
 	 * @param parent : who is the frame belongs to
 	 */
-	protected TakeChooseSlotFrame(StationEntryFrame parent) {
+	protected TakeChooseSlotFrame(StationManager parent) {
 		super(parent);
 		super.setLayout(null);
 		super.setResizable(false);
@@ -35,7 +35,7 @@ public class TakeChooseSlotFrame extends StateFrame{
 			slot[i].setEnabled(states[i]);
 			super.register(slot[i], ()->{
 				parent.setSlotID(k);
-				return new TakeScooterFrame(parent);
+				return new TakeConfirmSlotFrame(parent);
 			});
 			slot[i].setBounds(i*93, 200, 93, 100);
 		}

@@ -5,7 +5,7 @@ package gui;
  * @author Jiansen Song
  * @version 2.0
  */
-public class StationEntryFrame extends StateManager {
+public class StationManager extends StateManager {
 	/**Store the docking station ID*/
 	private int dockStationID;
 	/**Store the slot ID*/
@@ -16,7 +16,7 @@ public class StationEntryFrame extends StateManager {
 	 * Initial the StationEntryFrame with station ID
 	 * @param id : The ID of station
 	 */
-	public StationEntryFrame(int id) {
+	public StationManager(int id) {
 		this.dockStationID=id;
 	}
 	/**
@@ -53,7 +53,7 @@ public class StationEntryFrame extends StateManager {
 	}
 	
 	public static void main(String[] args) {
-		StationEntryFrame dockStation0=new StationEntryFrame(0);
+		StationManager dockStation0=new StationManager(0);
 		dockStation0.setState(new StationInputIDFrame(dockStation0));
 	}
 }

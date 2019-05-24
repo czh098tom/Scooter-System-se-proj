@@ -15,7 +15,7 @@ import data.TakeContract;
  * @author Jiansen Song
  * @version 4.0
  */
-public class TakeScooterFrame extends StateFrame{
+public class TakeConfirmSlotFrame extends StateFrame{
 	/**Timer to alarm the user*/
 	private static JLabel timer=new JLabel("",JLabel.CENTER);
 	/**Confirm to take the scooter*/
@@ -26,7 +26,7 @@ public class TakeScooterFrame extends StateFrame{
 	 * Initial the TakeScooterFrame with its parent
 	 * @param parent : who is the frame belongs to
 	 */
-	public TakeScooterFrame(StationEntryFrame parent){
+	public TakeConfirmSlotFrame(StationManager parent){
 		super(parent);
 		super.setLayout(null);
 		super.setResizable(false);
@@ -43,15 +43,12 @@ public class TakeScooterFrame extends StateFrame{
 		super.getContentPane().add(cancel);
 		cancel.setBounds(500, 250, 200, 100);
 		cancel.addActionListener(this);
-		super.register(cancel, ()->new TakeChooseSlotFrame(parent));
-		super.registerClosing(null);
+		super.register(cancel, ()->new StationInputIDFrame(parent));
+		super.registerClosing(()->new StationInputIDFrame(parent));
 		super.setVisible(true);
 		new TimerThread(this).start();
 	}
-	public static void main(String[] args) {
-		StationEntryFrame dockStation1=new StationEntryFrame(1);
-		dockStation1.setState(new TakeScooterFrame(dockStation1));	
-	}
+
 	/**
 	 * It's entity class, record the time
 	 * It's an inheritance from the Thread class
@@ -59,8 +56,8 @@ public class TakeScooterFrame extends StateFrame{
 	 * @version 3.0
 	 */
 	class TimerThread extends Thread{
-		private TakeScooterFrame parent;
-		public TimerThread(TakeScooterFrame parent) {
+		private TakeConfirmSlotFrame parent;
+		public TimerThread(TakeConfirmSlotFrame parent) {
 			this.parent=parent;
 		}
 		public void run() {
@@ -69,7 +66,7 @@ public class TakeScooterFrame extends StateFrame{
 			timer.schedule(new TimerTask() {
 				int i=0;
 				public void run() {
-					TakeScooterFrame.timer.setText(String.format("Only %d seconds left", countDown-i));
+					TakeConfirmSlotFrame.timer.setText(String.format("Only %d seconds left", countDown-i));
 					if(i%2==0) {
 						parent.ok.setBackground(Color.RED);
 					}else parent.ok.setBackground(null);
@@ -83,7 +80,7 @@ public class TakeScooterFrame extends StateFrame{
 				e.printStackTrace();
 			}
 			timer.cancel();
-			TakeScooterFrame.timer.setText("Time runs out");
+			TakeConfirmSlotFrame.timer.setText("Time runs out");
 			parent.ok.setEnabled(false);
 		}
 	

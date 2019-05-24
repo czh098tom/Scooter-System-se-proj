@@ -30,7 +30,7 @@ public class ReturnChooseSlotFrame extends StateFrame {
 	 * Initial the ReturnChooseSlotFrame with its parent
 	 * @param parent : who is the frame belongs to
 	 */
-	public ReturnChooseSlotFrame(StationEntryFrame parent) {
+	public ReturnChooseSlotFrame(StationManager parent) {
 		super(parent);
 		super.setLayout(null);
 		super.setResizable(false);

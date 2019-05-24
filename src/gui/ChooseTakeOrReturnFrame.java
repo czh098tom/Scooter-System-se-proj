@@ -22,7 +22,7 @@ public class ChooseTakeOrReturnFrame extends StateFrame{
 	 * Initial the ChooseTakeOrReturnFrame with its parent
 	 * @param parent : who is the frame belongs to
 	 */
-	protected ChooseTakeOrReturnFrame(StationEntryFrame parent) {
+	protected ChooseTakeOrReturnFrame(StationManager parent) {
 		super(parent);
 		super.setResizable(false);
 		super.setLayout(null);
