@@ -50,18 +50,7 @@ public class WeeklyReportData {
 	 * Generate an object list for JTable
 	 * @return return an object list of weeklyreportdata
 	 */
-	public static Object[] toObjList() {
+	public Object[] toObjList() {
 		return new Object[] {name,id,usage,fine};
-	}
-	
-	/**
-	 * Get the i-th user's email address
-	 * @param i
-	 * @return
-	 */
-	public static String getEmail(int i) {
-		DataBase db = DataBase.getCurrent();
-		LinkedList<User> users = db.getUsers();
-		return users.get(i).getEmail();
 	}
 }
