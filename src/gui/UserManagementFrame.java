@@ -113,7 +113,7 @@ public class UserManagementFrame extends JFrame implements ActionListener{
             if(!ismatch) name_input.setText("Wrong format. Must be 9 digits.");
             else {
             	name_input.setText("");
-            	model.addRow(db.getReportDataOf(id).toObjList());
+            	model.addRow(db.getReportDataOf(id).toObjList());//somethng's wrong here  null-pointer-exception
             }
         }
         //Send emails for all users
