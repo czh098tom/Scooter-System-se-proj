@@ -105,15 +105,16 @@ public class UserManagementFrame extends JFrame implements ActionListener{
             new DockManagementFrame().setVisible(true);
             dispose();
         }
-        //Input legality check, using regular expression, and confirm search request
+        //Input legality check, using regular expression, and confirm searching request
         if(e.getSource()==confirm){
             id = name_input.getText();
             String pattern = "^\\d{9}$";
             boolean ismatch = Pattern.matches(pattern,id);
             if(!ismatch) name_input.setText("Wrong format. Must be 9 digits.");
+            else if(!db.userExists(id)) name_input.setText("No such user. Enter an existed user ID."); 
             else {
             	name_input.setText("");
-            	model.addRow(db.getReportDataOf(id).toObjList());//somethng's wrong here  null-pointer-exception
+            	model.addRow(db.getReportDataOf(id).toObjList());
             }
         }
         //Send emails for all users
