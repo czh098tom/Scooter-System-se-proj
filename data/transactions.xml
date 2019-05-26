@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<java version="10.0.1" class="java.beans.XMLDecoder">
+<java version="10.0.2" class="java.beans.XMLDecoder">
  <object class="java.util.LinkedList">
   <void method="add">
    <object class="data.Transaction">
     <void property="date">
      <object class="java.util.Date">
-      <long>1557410359458</long>
+      <long>1558784645825</long>
      </object>
     </void>
     <void property="scooterID">
@@ -23,7 +23,7 @@
    <object class="data.Transaction">
     <void property="date">
      <object class="java.util.Date">
-      <long>1557410359459</long>
+      <long>1558784646077</long>
      </object>
     </void>
     <void property="scooterID">
@@ -41,7 +41,7 @@
    <object class="data.Transaction">
     <void property="date">
      <object class="java.util.Date">
-      <long>1557410359666</long>
+      <long>1558784646136</long>
      </object>
     </void>
     <void property="scooterID">
@@ -59,7 +59,7 @@
    <object class="data.Transaction">
     <void property="date">
      <object class="java.util.Date">
-      <long>1557402359666</long>
+      <long>1558784646159</long>
      </object>
     </void>
     <void property="scooterID">
@@ -77,7 +77,7 @@
    <object class="data.Transaction">
     <void property="date">
      <object class="java.util.Date">
-      <long>1557410359666</long>
+      <long>1558784646183</long>
      </object>
     </void>
     <void property="scooterID">
@@ -95,7 +95,7 @@
    <object class="data.Transaction">
     <void property="date">
      <object class="java.util.Date">
-      <long>1557410359666</long>
+      <long>1558784646206</long>
      </object>
     </void>
     <void property="scooterID">
@@ -103,39 +103,6 @@
     </void>
     <void property="type">
      <int>0</int>
-    </void>
-    <void property="userID">
-     <string>333333333</string>
-    </void>
-   </object>
-  </void>
-  <void method="add">
-   <object class="data.Transaction">
-    <void property="date">
-     <object class="java.util.Date">
-      <long>1557410377926</long>
-     </object>
-    </void>
-    <void property="scooterID">
-     <string>A2</string>
-    </void>
-    <void property="type">
-     <int>1</int>
-    </void>
-    <void property="userID">
-     <string>333333333</string>
-    </void>
-   </object>
-  </void>
-  <void method="add">
-   <object class="data.Transaction">
-    <void property="date">
-     <object class="java.util.Date">
-      <long>1557410377928</long>
-     </object>
-    </void>
-    <void property="type">
-     <int>2</int>
     </void>
     <void property="userID">
      <string>333333333</string>

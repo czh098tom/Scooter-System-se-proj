@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<java version="10.0.1" class="java.beans.XMLDecoder">
+<java version="10.0.2" class="java.beans.XMLDecoder">
  <object class="java.util.LinkedList">
   <void method="add">
    <object class="data.Station" id="Station0">
     <void property="scooters">
      <void index="3">
       <string>A3</string>
-     </void>
-     <void index="5">
-      <string>A2</string>
      </void>
      <void index="7">
       <string>A0</string>
