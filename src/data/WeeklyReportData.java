@@ -45,9 +45,9 @@ public class WeeklyReportData {
 	 * @return it will return several lines of user information (String)
 	 */
 	public String toString() {
-		return "User name:"+name+"\\r\\nUser ID:"
-				+id+"\\r\\nTotal using time:"
-				+usage+"\\r\\nIf any fine:"+fine+"\\r\\n";
+		return "User name:"+name+"\r\nUser ID:"
+				+id+"\r\nTotal using time:"
+				+usage+"\r\nIf any fine:"+fine+"\r\n";
 	}
 	
 	/**

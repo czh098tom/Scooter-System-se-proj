@@ -20,8 +20,8 @@ public class TestDataGenerator {
     		DataBase db=DataBase.getNew();
     		db.initialize();
     		db.regUser(new User("111111111","AAA","1@2.3"));
-    		db.regUser(new User("222222222","BBB","1@2.3"));
-    		db.regUser(new User("333333333","CCC","1@2.3"));
+    		db.regUser(new User("222222222","BBB","2@2.3"));
+    		db.regUser(new User("333333333","CCC","3@2.3"));
     		for(int i=0;i<4;i++) {
         		db.putScooter(0,i,"A"+i);
     		}
