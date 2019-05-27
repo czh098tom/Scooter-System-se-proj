@@ -98,7 +98,6 @@ public class UserManagementFrame extends JFrame implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) { 
     	DataBase db=DataBase.getCurrent();
-    	LinkedList<User> users = db.getUsers();
     	//Frame swapping with Manager_Dock_Frame
         if(e.getSource()==dock){
             setVisible(false);
@@ -119,10 +118,9 @@ public class UserManagementFrame extends JFrame implements ActionListener{
         }
         //Send emails for all users
         if(e.getSource()==send){
-        	int size = users.size();
-        	for(int i=0;i<size;i++) {
-        		String path = "C:\\Users\\YSY\\Desktop\\软件工程\\paperprotype\\"+users.get(i).getEmail()+".txt";
-        		String content = WeeklyReportData.toString(i);
+        	for(WeeklyReportData wrd:db.getReportData()) {
+        		String path = "C:\\Users\\YSY\\Desktop\\软件工程\\paperprotype\\"+wrd.getEmail()+".txt";
+        		String content = wrd.toString();
         		create_file(path);
                 write_file(content,path);
         	} 

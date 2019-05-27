@@ -7,11 +7,15 @@ public class WeeklyReportData {
 	 * Store user ID and name in report.
 	 */
 	
-	static String name;
-	static String id;
-	static String email;
-	static long usage;
-	static int fine;
+	String name;
+	String id;
+	String email;
+	long usage;
+	int fine;
+	
+	public String getEmail() {
+		return email;
+	}
 	
 	/**
 	 * An empty constructor
@@ -36,19 +40,19 @@ public class WeeklyReportData {
 	}
 
 	/**
-	 * Generate necessary information for sending emails.
+	 * Generate necessary information for sending email.
 	 * @param id : a given user's id
 	 * @return it will return several lines of user information (String)
 	 */
-	public static String toString(int i) {
-		DataBase db = DataBase.getCurrent();
-		LinkedList<User> users = db.getUsers();
-		return "User name:"+users.get(i).getName()+"\\r\\nUser ID:"+users.get(i).getId()+"\\r\\nTotal using time:"+db.sumWeeklyUsage(id)+"\\r\\nIf any fine:"+db.sumFine(id)+"\\r\\n";
+	public String toString() {
+		return "User name:"+name+"\\r\\nUser ID:"
+				+id+"\\r\\nTotal using time:"
+				+usage+"\\r\\nIf any fine:"+fine+"\\r\\n";
 	}
 	
 	/**
 	 * Generate an object list for JTable
-	 * @return return an object list of weeklyreportdata
+	 * @return return an object list of {@link WeeklyReportData}
 	 */
 	public Object[] toObjList() {
 		return new Object[] {name,id,usage,fine};

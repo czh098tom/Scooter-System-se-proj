@@ -5,6 +5,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import data.DataBase;
+import data.PayFineContract;
 /**
  * It's boundary class, let users to take or return the scooter
  * It's an inheritance from the StateFrame class
@@ -46,7 +47,21 @@ public class ChooseTakeOrReturnFrame extends StateFrame{
 			if(DataBase.getCurrent().isUnpaid(parent.getUserID())) {
 				JOptionPane.showMessageDialog(ChooseTakeOrReturnFrame.this
 						, "You are currently being fined! Please pay first.");
-				return ChooseTakeOrReturnFrame.this;
+				PayFineContract pfc=new PayFineContract(parent.getUserID());
+				double amount=pfc.sumUnpaidFine()*PayFineContract.singleFineAmount;
+				int res=JOptionPane.showConfirmDialog(ChooseTakeOrReturnFrame.this
+						, "You are currently being fined at amount of "
+						+amount
+						+" pounds, do you wish to pay the fine now?",null
+						,JOptionPane.OK_CANCEL_OPTION);
+				if(res==JOptionPane.OK_OPTION) {
+					pfc.pay();
+					JOptionPane.showMessageDialog(ChooseTakeOrReturnFrame.this
+							, "Paid fine "+amount+" pounds.");
+				}
+				else {
+					return ChooseTakeOrReturnFrame.this;
+				}
 			}
 			if(DataBase.getCurrent().isTodayUsageOverFlow(parent.getUserID())) {
 				JOptionPane.showMessageDialog(ChooseTakeOrReturnFrame.this

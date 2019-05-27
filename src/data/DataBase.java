@@ -194,7 +194,7 @@ public final class DataBase {
      * True for slot that is occupied.
      */
     public boolean[] getStationState(int stationid) {
-    	boolean[] states=new boolean[Station.SCOOTERCOUNT];////////////////////////////////////////////////////////////////////////////
+    	boolean[] states=new boolean[Station.SCOOTERCOUNT];
     	for(int i=0;i<Station.SCOOTERCOUNT;i++) {
     		states[i]=stations.get(stationid).getState(i);
     	}
