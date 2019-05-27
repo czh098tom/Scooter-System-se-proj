@@ -13,11 +13,21 @@ import javax.swing.table.JTableHeader;
 
 import data.DataBase;
 import data.User;
-
-public class RegisterFrame extends StateFrame{
-
+/**
+ * It's boundary class, let users to enter their own registration information
+ * Including full name, email
+ * It's an inheritance from the StateFrame class
+ * @author Ningning Wang
+ * @version 3.0
+ */
+public class InputInformationFrame extends StateFrame{
+	/**Display information to be entered*/
 	JTextField nameText,emailText=null ;
-	protected RegisterFrame(StateManager parent,String userID) {
+	/**
+	 * Initial the InputInformationFrame with its parent
+	 * @param parent : who is the frame belongs to
+	 */
+	protected InputInformationFrame(StateManager parent,String userID) {
 		super(parent);
 		JPanel panel=new JPanel();
 		panel.setLayout(null);
@@ -68,7 +78,7 @@ public class RegisterFrame extends StateFrame{
                 }
 	    		else {
 	    			emailText.setText("");
-			    	return RegisterFrame.this;
+			    	return InputInformationFrame.this;
 	    		}
 	    	}
 	    	

@@ -1,9 +1,9 @@
 package gui;
 
-public class MyTest extends StateManager{
+public class RegisterManagement extends StateManager{
 
 	public static void main(String[] args) {
-		MyTest tm=new MyTest();
+		RegisterManagement tm=new RegisterManagement();
     	tm.setState(new EnterIDFrame(tm));
 		// TODO Auto-generated method stub
 

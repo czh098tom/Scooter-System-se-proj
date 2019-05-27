@@ -9,9 +9,17 @@ import javax.swing.JPanel;
 
 import data.DataBase;
 import data.User;
-
+/**
+ * It's boundary class, display user registration information
+ * It's an inheritance from the StateFrame class
+ * @author Ningning Wang
+ * @version 3.0
+ */
 public class PersonalFrame extends StateFrame{
-
+	/**
+	 * Initial the PersonalFrame with its parent
+	 * @param parent : who is the frame belongs to
+	 */
 	protected PersonalFrame(StateManager parent,User user) {
 		super(parent);
 		JPanel panel=new JPanel();

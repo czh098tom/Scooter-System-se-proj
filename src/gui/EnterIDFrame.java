@@ -11,12 +11,20 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JOptionPane;
-
+/**
+ * It's boundary class, let users to enter their own QM number
+ * It's an inheritance from the StateFrame class
+ * @author Ningning Wang
+ * @version 3.0
+ */
 public class EnterIDFrame extends StateFrame{
 
 
 	JTextField IDText=null ;
-
+	/**
+	 * Initial the EnterIDFrame with its parent
+	 * @param parent : who is the frame belongs to
+	 */
 	protected EnterIDFrame(StateManager parent) {
 		super(parent);
 		JPanel panel=new JPanel();
@@ -65,7 +73,7 @@ public class EnterIDFrame extends StateFrame{
 			    	return EnterIDFrame.this;
 	    		}
 			}
-	    	return new RegisterFrame(parent,IDText.getText());
+	    	return new InputInformationFrame(parent,IDText.getText());
 	    });
 		super.registerClosing(null);
 	    submitButton.setBounds(200,270,300,70);

@@ -107,7 +107,7 @@ public class UserManagementFrame extends JFrame implements ActionListener{
         //Input legality check, using regular expression, and confirm searching request
         if(e.getSource()==confirm){
             id = name_input.getText();
-            if(User.checkQMID(id)) JOptionPane.showMessageDialog(UserManagementFrame.this,
+            if(!User.checkQMID(id)) JOptionPane.showMessageDialog(UserManagementFrame.this,
             		"Wrong format. Must be 9 digits.");
             else if(!db.userExists(id)) JOptionPane.showMessageDialog(UserManagementFrame.this,
             		"No such user. Enter an existed user ID."); 
