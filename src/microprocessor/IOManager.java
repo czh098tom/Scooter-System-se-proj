@@ -5,7 +5,7 @@ public abstract class IOManager {
 	
 	public static IOManager getCurrent() {
 		if(current==null) {
-			current=new SystemIO();
+			current=new SerialIO();
 		}
 		return current;
 	}
