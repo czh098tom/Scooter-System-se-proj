@@ -1,5 +1,7 @@
 package gui;
 
+import java.awt.Font;
+
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -36,6 +38,10 @@ public class ChooseTakeOrReturnFrame extends StateFrame{
 		super.getContentPane().add(ret);
 		ret.setBounds(500, 250, 200, 100);
 		ret.addActionListener(this);
+		
+		take.setFont(new Font(Font.DIALOG,Font.BOLD,25));
+		ret.setFont(new Font(Font.DIALOG,Font.BOLD,25));
+		friendlyMessage.setFont(new Font(Font.DIALOG,Font.BOLD,30));
 		
 		super.register(take, ()->
 		{

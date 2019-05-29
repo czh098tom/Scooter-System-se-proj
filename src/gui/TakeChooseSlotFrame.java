@@ -1,4 +1,6 @@
 package gui;
+import java.awt.Font;
+
 import javax.swing.JButton;
 import javax.swing.JLabel;
 
@@ -26,6 +28,9 @@ public class TakeChooseSlotFrame extends StateFrame{
 		super.setBounds(0, 0, 750, 500);
 		super.getContentPane().add(timer);
 		timer.setBounds(0, 0, 750, 200);
+		
+		timer.setFont(new Font(Font.DIALOG,Font.BOLD,30));
+		
 		boolean[] states=DataBase.getCurrent().getStationState(parent.getStationID());
 		for(int i=0;i<Station.SCOOTERCOUNT;i++) {
 			final int k=i;
@@ -33,6 +38,7 @@ public class TakeChooseSlotFrame extends StateFrame{
 			super.getContentPane().add(slot[i]);
 			slot[i].addActionListener(this);
 			slot[i].setEnabled(states[i]);
+			slot[i].setFont(new Font(Font.DIALOG,Font.BOLD,20));
 			super.register(slot[i], ()->{
 				parent.setSlotID(k);
 				return new TakeConfirmSlotFrame(parent);

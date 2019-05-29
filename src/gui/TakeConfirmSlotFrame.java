@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
@@ -36,6 +37,7 @@ public class TakeConfirmSlotFrame extends StateFrame{
 		super.getContentPane().add(ok);
 		ok.setBounds(50, 250, 200, 100);
 		ok.addActionListener(this);
+		
 		super.register(ok, ()->{
 			new TakeContract(parent.getUserID(), parent.getStationID(), parent.getSlotID()).takeScooter();
 			return new StationInputIDFrame(parent); 
@@ -43,6 +45,11 @@ public class TakeConfirmSlotFrame extends StateFrame{
 		super.getContentPane().add(cancel);
 		cancel.setBounds(500, 250, 200, 100);
 		cancel.addActionListener(this);
+		
+		timer.setFont(new Font(Font.DIALOG,Font.BOLD,30));
+		ok.setFont(new Font(Font.DIALOG,Font.BOLD,30));
+		cancel.setFont(new Font(Font.DIALOG,Font.BOLD,30));
+		
 		super.register(cancel, ()->new StationInputIDFrame(parent));
 		super.registerClosing(()->new StationInputIDFrame(parent));
 		super.setVisible(true);

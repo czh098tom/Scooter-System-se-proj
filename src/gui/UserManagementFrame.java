@@ -27,7 +27,7 @@ public class UserManagementFrame extends JFrame implements ActionListener{
     JButton confirm = new JButton("confirm");
     JButton send = new JButton("send emails for all user");
 
-    JTextArea name_input = new JTextArea(2,20);
+    JTextArea name_input = new JTextArea(1,15);
 
     JLabel name = new JLabel("Input an ID:");
 
@@ -35,7 +35,7 @@ public class UserManagementFrame extends JFrame implements ActionListener{
 
     JScrollPane scrollpane = new JScrollPane();
 
-    Font f = new Font("TimesRoman",0,20);
+  //  Font f = new Font("TimesRoman",0,20);
 
     String id;
 	private DefaultTableModel model;
@@ -45,10 +45,16 @@ public class UserManagementFrame extends JFrame implements ActionListener{
      * which can search for user data and send emails.
      */
     public UserManagementFrame(){
-        name.setFont(f);
-        name_input.setFont(f);
-        confirm.setFont(f);
-
+    	name.setFont(new Font(Font.DIALOG,Font.BOLD,25));
+    	name_input.setFont(new Font(Font.DIALOG,Font.BOLD,25));
+    	confirm.setFont(new Font(Font.DIALOG,Font.BOLD,25));
+    	search.setFont(new Font(Font.DIALOG,Font.BOLD,25));
+    	send_email.setFont(new Font(Font.DIALOG,Font.BOLD,25));
+    	dock.setFont(new Font(Font.DIALOG,Font.BOLD,25));
+    	user.setFont(new Font(Font.DIALOG,Font.BOLD,25));
+    	send.setFont(new Font(Font.DIALOG,Font.BOLD,25));
+    	
+    	
         this.setTitle("Docking Management System");
         this.setSize(700,500);
         this.setLayout(new GridLayout(4,1));
@@ -71,13 +77,14 @@ public class UserManagementFrame extends JFrame implements ActionListener{
         //Generating a searching table for manager
         Object[] columnNames = new Object[]{"Name","ID","Number of fines","Using time"};
         model = new DefaultTableModel(null,columnNames);
-        table = new JTable(model);
+        table = new JTable(model);  
         scrollpane.setBounds(50,100,700,350);
         scrollpane.setViewportView(table);
         table.setRowHeight(50);
         DefaultTableCellRenderer r = new DefaultTableCellRenderer();
         r.setHorizontalAlignment(JLabel.CENTER);
         table.setDefaultRenderer(Object.class,r);
+      
 
         dock.addActionListener(this);
         confirm.addActionListener(this);

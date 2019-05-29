@@ -4,6 +4,7 @@ import data.ReturnContract;
 import data.Station;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
@@ -43,6 +44,7 @@ public class ReturnChooseSlotFrame extends StateFrame {
 		for(int i=0;i<8;i++) {
 			final int k=i;
 			slot[i]=new JButton("Slot "+(i+1));
+			slot[i].setFont(new Font(Font.DIALOG,Font.BOLD,20));
 			super.getContentPane().add(slot[i]);
 			slot[i].setEnabled(!states[i]);
 			slot[i].addActionListener(this);
@@ -71,6 +73,9 @@ public class ReturnChooseSlotFrame extends StateFrame {
 		cancel.setBounds(125, 300, 500, 100);
 		cancel.addActionListener(this);
 		super.register(cancel, ()->new ChooseTakeOrReturnFrame(parent));
+		
+		timer.setFont(new Font(Font.DIALOG,Font.BOLD,30));
+		cancel.setFont(new Font(Font.DIALOG,Font.BOLD,30));
 		
 		super.registerClosing(()->new ChooseTakeOrReturnFrame(parent));
 		new TimerThread(this).start();

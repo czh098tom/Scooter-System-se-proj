@@ -23,11 +23,16 @@ public class DockManagementFrame extends JFrame implements ActionListener{
     JPanel notification = new JPanel();
 
     JButton dock = new JButton("Dock");
+    
+    
     JButton user = new JButton("User");
-
+ 
     JLabel A = new JLabel("Station A:                           ");
+  
     JLabel B = new JLabel("Station B:                           ");
+  
     JLabel C = new JLabel("Station C:                           ");
+    
     //JLabel notices = new JLabel("White:available      Grey:unlocked       Black:Empty");
     JLabel notices = new JLabel("White:available            Black:occupied");
     
@@ -36,19 +41,30 @@ public class DockManagementFrame extends JFrame implements ActionListener{
      * Including all three docking stations, and the status of each slot
      */
     public DockManagementFrame() {
+    	
     	DataBase db = DataBase.getCurrent();
         this.setTitle("Docking Management System");
         this.setSize(700,500);
         this.setLayout(new GridLayout(5,1,0,0));
+        
+        stationA.setFont(new Font(Font.DIALOG,Font.BOLD,25));
+        stationB.setFont(new Font(Font.DIALOG,Font.BOLD,25));
+        stationC.setFont(new Font(Font.DIALOG,Font.BOLD,25));
+        A.setFont(new Font(Font.DIALOG,Font.BOLD,25));
+        B.setFont(new Font(Font.DIALOG,Font.BOLD,25));
+        C.setFont(new Font(Font.DIALOG,Font.BOLD,25));
+        dock.setFont(new Font(Font.DIALOG,Font.BOLD,25));
+        user.setFont(new Font(Font.DIALOG,Font.BOLD,25));
+        notices.setFont(new Font(Font.DIALOG,Font.BOLD,25));
 
-        line.setSize(700,50);
+        line.setSize(1000,50);
         line.setLayout(new FlowLayout(0));
         line.add(dock);
         line.add(user);
 
         user.addActionListener(this);
 
-        stationA.setSize(700,200);
+        stationA.setSize(1000,200);
         stationA.setLayout(new FlowLayout(0));
         stationA.add(A);
         /*for(i=0;i<8;i++){

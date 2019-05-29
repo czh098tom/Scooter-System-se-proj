@@ -1,6 +1,9 @@
 package gui;
 
+import java.awt.Font;
+
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
@@ -14,7 +17,7 @@ import data.User;
  */
 public class StationInputIDFrame extends StateFrame {
 	/**Show friendly message: Please enter your QM number*/
-	private JTextField prompt1=new JTextField("Please enter your QM number:");
+	private JLabel prompt1=new JLabel("Please enter your QM number:");
 	/**Get the QM ID of user*/
 	private JTextField qmID=new JTextField();
 	/**Check the ID whether is valid*/
@@ -29,11 +32,13 @@ public class StationInputIDFrame extends StateFrame {
 		super.setResizable(false);
 		super.setBounds(0, 0, 750, 500);
 		super.getContentPane().add(prompt1);
-		prompt1.setEditable(false);
-		prompt1.setBounds(0, 0, 750, 100);
+		prompt1.setFont(new Font(Font.DIALOG,Font.BOLD,25));
+		prompt1.setBounds(0, 50, 750, 100);
 		super.getContentPane().add(qmID);
-		qmID.setBounds(0, 100, 750, 200);
+		qmID.setFont(new Font(Font.DIALOG,Font.BOLD,25));
+		qmID.setBounds(0, 150, 750, 100);
 		super.getContentPane().add(submit);
+		submit.setFont(new Font(Font.DIALOG,Font.BOLD,25));
 		submit.setBounds(125, 300, 500, 100);
 		submit.addActionListener(this);
 		
