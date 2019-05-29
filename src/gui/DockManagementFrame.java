@@ -33,7 +33,6 @@ public class DockManagementFrame extends JFrame implements ActionListener{
   
     JLabel C = new JLabel("Station C:                           ");
     
-    //JLabel notices = new JLabel("White:available      Grey:unlocked       Black:Empty");
     JLabel notices = new JLabel("White:available            Black:occupied");
     
     /**
@@ -67,66 +66,14 @@ public class DockManagementFrame extends JFrame implements ActionListener{
         stationA.setSize(1000,200);
         stationA.setLayout(new FlowLayout(0));
         stationA.add(A);
-        /*for(i=0;i<8;i++){
-            if(array[0][i]==0){
-                ImageIcon black = new ImageIcon("images\\black.png");
-                JLabel b = new JLabel(black);
-                stationA.add(b);
-            }
-            if(array[0][i]==1){
-                ImageIcon white = new ImageIcon("images\\white.png");
-                JLabel w = new JLabel(white);
-                stationA.add(w);
-            }
-            if(array[0][i]==2){
-                ImageIcon grey = new ImageIcon("images\\grey.png");
-                JLabel g = new JLabel(grey);
-                stationA.add(g);
-            }
-        }*/
         
         stationB.setSize(700,200);
         stationB.setLayout(new FlowLayout(0));
         stationB.add(B);
-        /*for(i=0;i<8;i++){
-            if(array[1][i]==0){
-                ImageIcon black = new ImageIcon("images\\black.png");
-                JLabel b = new JLabel(black);
-                stationB.add(b);
-            }
-            if(array[1][i]==1){
-                ImageIcon white = new ImageIcon("images\\white.png");
-                JLabel w = new JLabel(white);
-                stationB.add(w);
-            }
-            if(array[1][i]==2){
-                ImageIcon grey = new ImageIcon("images\\grey.png");
-                JLabel g = new JLabel(grey);
-                stationB.add(g);
-            }
-        }*/
 
         stationC.setSize(700,200);
         stationC.setLayout(new FlowLayout(0));
         stationC.add(C);
-        /*for(i=0;i<8;i++){
-            if(array[2][i]==0){
-                ImageIcon black = new ImageIcon("images\\black.png");
-                JLabel b = new JLabel(black);
-                stationC.add(b);
-            }
-            if(array[2][i]==1){
-                ImageIcon white = new ImageIcon("images\\white.png");
-                JLabel w = new JLabel(white);
-                stationC.add(w);
-            }
-            if(array[2][i]==2){
-                ImageIcon grey = new ImageIcon("images\\grey.png");
-                JLabel g = new JLabel(grey);
-                stationC.add(g);
-            }
-        }*/
-
         
         boolean[] states=new boolean[8];
         states = db.getStationState(i);
@@ -149,7 +96,6 @@ public class DockManagementFrame extends JFrame implements ActionListener{
         	}
         }
 		
-        
         notification.setSize(700,50);
         notification.add(notices,BorderLayout.CENTER);
 
@@ -162,9 +108,6 @@ public class DockManagementFrame extends JFrame implements ActionListener{
         this.setVisible(true);
     }
     public static void main(String[] args){
-        /*array = new int[][]{{0, 2, 1, 0, 0, 2, 0, 0}, // '0' : empty(black)  '1' : available(white)  '2' : unlocked(grey)
-                {0, 2, 1, 2, 0, 2, 0, 2},
-                {0, 0, 1, 2, 0, 0, 0, 2}};*/
         DockManagementFrame MF = new DockManagementFrame();
         MF.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
