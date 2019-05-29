@@ -10,6 +10,7 @@ public class SerialIO extends IOManager{
 	private CommPort com;
 	private SerialPort ser;
 	private Scanner serScanner;
+	private InputStream serIS;
 	private OutputStream serOS;
 	
 	public SerialIO() {
@@ -22,7 +23,8 @@ public class SerialIO extends IOManager{
 			// Baud rate = 9600, Data bits = 8, 1 stop bit, Parity OFF
             ser.setSerialPortParams(9600, SerialPort.DATABITS_8, 
                                     SerialPort.STOPBITS_1, SerialPort.PARITY_NONE);
-            serScanner=new Scanner(ser.getInputStream());
+            serIS=ser.getInputStream();
+            serScanner=new Scanner(serIS);
             serOS=ser.getOutputStream();
         } catch (Exception e){
             e.printStackTrace(System.out);
@@ -31,7 +33,14 @@ public class SerialIO extends IOManager{
 
 	@Override
 	public byte getFrom() {
-		return serScanner.nextByte();
+		try {
+            while (serIS.available() == 0);
+            return (byte)serIS.read();
+		}
+		catch(Exception e){
+            e.printStackTrace(System.out);
+            return 0;
+        }
 	}
 
 	@Override
@@ -44,7 +53,8 @@ public class SerialIO extends IOManager{
         }
 	}
 
-	public void finalize() {
+	@Override
+	public void close() {
 		ser.close();
 	}
 }

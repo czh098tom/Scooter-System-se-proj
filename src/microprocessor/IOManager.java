@@ -5,7 +5,7 @@ public abstract class IOManager {
 	
 	public static IOManager getCurrent() {
 		if(current==null) {
-			current=new SerialIO();
+			current=new SystemIO();
 		}
 		return current;
 	}
@@ -14,4 +14,7 @@ public abstract class IOManager {
 	
 	public abstract void setTo(byte value);
 	
+	public void close() {
+		
+	}
 }
