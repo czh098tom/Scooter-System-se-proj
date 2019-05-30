@@ -2,17 +2,11 @@ package gui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.table.JTableHeader;
 
-import data.DataBase;
-import data.User;
+import data.*;
 /**
  * It's boundary class, let users to enter their own registration information
  * Including full name, email
@@ -27,7 +21,7 @@ public class InputInformationFrame extends StateFrame{
 	 * Initial the InputInformationFrame with its parent
 	 * @param parent : who is the frame belongs to
 	 */
-	protected InputInformationFrame(StateManager parent,String userID) {
+	protected InputInformationFrame(RegisterManagement parent) {
 		super(parent);
 		JPanel panel=new JPanel();
 		panel.setLayout(null);
@@ -82,12 +76,9 @@ public class InputInformationFrame extends StateFrame{
 	    		}
 	    	}
 	    	
-	    	User newUser=new User(userID,fullName,email);
-	    	DataBase database=DataBase.getCurrent();
-	    	database.regUser(newUser);
-	    	database.writeToFile();
+	    	RegistrationContract rc=new RegistrationContract(parent.getUserID(),fullName,email);
 	    	
-	    	return new PersonalFrame(parent,newUser);
+	    	return new PersonalFrame(parent,rc.register());
 	    });
 	    submitButton.setBounds(255,360,300,70);
 		panel.add(submitButton);

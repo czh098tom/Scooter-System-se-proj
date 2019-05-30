@@ -289,14 +289,6 @@ public final class DataBase {
     }
     
     /**
-     * Register a {@link User} to current database.
-     * @param u : A validated user.
-     */
-    public void regUser(User u) {
-    	users.add(u);
-    }
-    
-    /**
      * Get weekly report data of a given user.
      * @param userid : A String object of userID.
      * @return An object typed {@link WeeklyReportData}, null if nothing is find

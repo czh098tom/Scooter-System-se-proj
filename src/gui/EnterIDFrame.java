@@ -25,7 +25,7 @@ public class EnterIDFrame extends StateFrame{
 	 * Initial the EnterIDFrame with its parent
 	 * @param parent : who is the frame belongs to
 	 */
-	protected EnterIDFrame(StateManager parent) {
+	protected EnterIDFrame(RegisterManagement parent) {
 		super(parent);
 		JPanel panel=new JPanel();
 		panel.setLayout(null);
@@ -73,7 +73,8 @@ public class EnterIDFrame extends StateFrame{
 			    	return EnterIDFrame.this;
 	    		}
 			}
-	    	return new InputInformationFrame(parent,IDText.getText());
+			parent.setUserID(IDText.getText());
+	    	return new InputInformationFrame(parent);
 	    });
 		super.registerClosing(null);
 	    submitButton.setBounds(200,270,300,70);

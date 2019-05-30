@@ -19,7 +19,7 @@ public class TestManager extends StateManager {
     	if(User.checkEmail("1@2.3")&&User.checkQMID("123456789")) {
     		DataBase db=DataBase.getNew();
     		db.initialize();
-    		db.regUser(new User("123456789","aaa","1@2.3"));
+    		new RegistrationContract("123456789","aaa","1@2.3").register();
     		db.putScooter(0,0,"aaa");
     		//db.takeScooter("123456789", 0, 0);
     		db.writeToFile();
