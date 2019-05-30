@@ -1,6 +1,6 @@
 package gui;
 
-public class RegisterManagement extends StateManager{
+public class RegisterManager extends StateManager{
 
 	private String userID;
 	
@@ -13,7 +13,7 @@ public class RegisterManagement extends StateManager{
 	}
 	
 	public static void main(String[] args) {
-		RegisterManagement tm=new RegisterManagement();
+		RegisterManager tm=new RegisterManager();
     	tm.setState(new EnterIDFrame(tm));
 		// TODO Auto-generated method stub
 

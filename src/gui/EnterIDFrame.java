@@ -25,7 +25,7 @@ public class EnterIDFrame extends StateFrame{
 	 * Initial the EnterIDFrame with its parent
 	 * @param parent : who is the frame belongs to
 	 */
-	protected EnterIDFrame(RegisterManagement parent) {
+	protected EnterIDFrame(RegisterManager parent) {
 		super(parent);
 		JPanel panel=new JPanel();
 		panel.setLayout(null);

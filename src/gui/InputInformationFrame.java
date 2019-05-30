@@ -21,7 +21,7 @@ public class InputInformationFrame extends StateFrame{
 	 * Initial the InputInformationFrame with its parent
 	 * @param parent : who is the frame belongs to
 	 */
-	protected InputInformationFrame(RegisterManagement parent) {
+	protected InputInformationFrame(RegisterManager parent) {
 		super(parent);
 		JPanel panel=new JPanel();
 		panel.setLayout(null);
