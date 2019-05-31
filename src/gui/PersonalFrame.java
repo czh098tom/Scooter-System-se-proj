@@ -19,6 +19,7 @@ public class PersonalFrame extends StateFrame{
 	/**
 	 * Initial the PersonalFrame with its parent
 	 * @param parent : who is the frame belongs to
+	 * @param user : the user whose information is shown at this frame.
 	 */
 	protected PersonalFrame(StateManager parent,User user) {
 		super(parent);
