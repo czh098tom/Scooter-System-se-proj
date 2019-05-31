@@ -53,7 +53,24 @@ public class StationManager extends StateManager {
 	}
 	
 	public static void main(String[] args) {
-		StationManager dockStation0=new StationManager(0);
+		int id=0;
+		boolean modified=false;
+		try {
+			if(args!=null&&args.length>0)
+			{
+				int tmp=Integer.parseInt(args[0]);
+				if(tmp<3) 
+				{
+					id=tmp;
+					modified=true;
+				}
+			}
+		}
+		finally {
+			if(!modified) System.out.println("Station does not given ot does not exist."
+					+" Will enter Station 0 instead.");
+		}
+		StationManager dockStation0=new StationManager(id);
 		dockStation0.setState(new StationInputIDFrame(dockStation0));
 	}
 }
