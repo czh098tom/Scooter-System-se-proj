@@ -107,7 +107,9 @@ public class UserManagementFrame extends JFrame implements ActionListener{
     	//Frame swapping with Manager_Dock_Frame
         if(e.getSource()==dock){
             setVisible(false);
-            new DockManagementFrame().setVisible(true);
+            DockManagementFrame dmf=new DockManagementFrame();
+            dmf.setVisible(true);
+            dmf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             dispose();
         }
         //Input legality check, using regular expression, and confirm searching request

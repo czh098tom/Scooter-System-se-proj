@@ -76,8 +76,8 @@ public class DockManagementFrame extends JFrame implements ActionListener{
         stationC.add(C);
         
         boolean[] states=new boolean[8];
-        states = db.getStationState(i);
         for(i=0;i<3;i++){
+            states = db.getStationState(i);
         	for(j=0;j<8;j++){
         		if(states[j]==true){
         			ImageIcon black = new ImageIcon("images\\black.png");
@@ -117,7 +117,9 @@ public class DockManagementFrame extends JFrame implements ActionListener{
     	//Frame swapping with Manager_User_Frame
         if(e.getSource()==user){
             setVisible(false);
-            new UserManagementFrame().setVisible(true);
+            UserManagementFrame umf=new UserManagementFrame();
+            umf.setVisible(true);
+            umf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             dispose();
         }
     }

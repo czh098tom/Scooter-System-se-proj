@@ -13,7 +13,7 @@ public class TestDataGenerator {
 		
 		for(int j=0;j<3;j++) {
     		for(int i=0;i<4;i++) {
-        		db.putScooter(0,i,stationIDs[j]+i);
+        		db.putScooter(j,i,stationIDs[j]+i);
     		}
 		}
 
