@@ -6,7 +6,7 @@ import java.awt.event.*;
 import javax.swing.JFrame;
 
 /**
- * Base class for all {@link JFrame} that represent a state in {@link Control}.
+ * Base class for all {@link JFrame} that represent a state in {@link StateManager}.
  * @author Zihao Chen
  */
 public abstract class StateFrame extends JFrame implements ActionListener {
@@ -18,7 +18,7 @@ public abstract class StateFrame extends JFrame implements ActionListener {
 	private HashMap<Object,Supplier<StateFrame>> commands=new HashMap<Object,Supplier<StateFrame>>();
 
     /**
-     * Store the parent {@link Control}.
+     * Store the parent {@link StateManager}.
      */
 	private StateManager parent; 
 
@@ -69,7 +69,7 @@ public abstract class StateFrame extends JFrame implements ActionListener {
 	
     /**
      * This method gets the parent control of this frame.
-     * @return An object typed {@link Control}.
+     * @return An object typed {@link StateManager}.
      */
 	protected final StateManager getParentManager() {
 		return parent;

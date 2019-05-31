@@ -312,7 +312,7 @@ public final class DataBase {
     
     /**
      * Get weekly report data.
-     * @return An object typed {@link ArrayList<WeeklyReportData>}, not null;
+     * @return An object typed {@link ArrayList}, not null;
      */
     public ArrayList<WeeklyReportData> getReportData(){
     	ArrayList<WeeklyReportData> list=new ArrayList<>();
@@ -356,7 +356,7 @@ public final class DataBase {
     
     /**
      * Get the transactions stored in this database.
-     * @return A object typed {@link:LinkedList<Transaction>}, not null.
+     * @return A object typed {@link LinkedList}, not null.
      */
     public LinkedList<Transaction> getTransactions(){
     	return transactions;
@@ -365,7 +365,7 @@ public final class DataBase {
     /**
      * Get the station stored in this database by its ID.
      * @param id : The ID of the target station.
-     * @return A object typed {@link:Station}, not null.
+     * @return A object typed {@link Station}, not null.
      */
     public Station getStationByID(int id){
     	return stations.get(id);

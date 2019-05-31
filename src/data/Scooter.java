@@ -35,7 +35,7 @@ public class Scooter{
     
     /**
      * This method does nothing. Just JavaBean object needed.
-     * @param id : No meanings.
+     * @param value : No meanings.
      */
     public void setID(String value) {
     	this.id=value;

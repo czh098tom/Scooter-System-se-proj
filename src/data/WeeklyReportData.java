@@ -23,13 +23,14 @@ public class WeeklyReportData {
 	public WeeklyReportData() {
 		
 	}
-	
+
 	/**
-	 * A constructor.
-	 * @param name
-	 * @param id
-	 * @param sumWeeklyUsage
-	 * @param sumFine
+	 * Initialize the {@link WeeklyReportData} by name, ID of user, usage, fine and email.
+	 * @param name : Name of user.
+	 * @param id : ID of user.
+	 * @param usage : Usage time (in minutes).
+	 * @param fine : Fine count.
+	 * @param email : Email address of the user.
 	 */
 	public WeeklyReportData(String name, String id, long usage, int fine,String email) {
 		this.name = name;
@@ -41,13 +42,12 @@ public class WeeklyReportData {
 
 	/**
 	 * Generate necessary information for sending email.
-	 * @param id : a given user's id
-	 * @return it will return several lines of user information (String)
+	 * @return An object typed String with several lines of user information (String)
 	 */
 	public String toString() {
-		return "User name:"+name+"\r\nUser ID:"
-				+id+"\r\nTotal using time:"
-				+usage+"\r\nIf any fine:"+fine+"\r\n";
+		return "User name:"+name+"\r\nUser ID: "
+				+id+"\r\nTotal using time: "
+				+usage+" minute(s)\r\nFine count last week: "+fine+"\r\n";
 	}
 	
 	/**

@@ -34,7 +34,7 @@ public class RegistrationContract {
 
     /**
      * Register a {@link User} to current database by given data.
-     * @return an object typed {@link user}.
+     * @return an object typed {@link User}.
      */
 	public User register() {
 		LinkedList<User> users=DataBase.getCurrent().getUsers();
