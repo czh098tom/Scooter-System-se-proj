@@ -11,20 +11,31 @@ public class MicroprocessorEntry {
 	private static final byte IN_CANCEL=-1;
 	private static final byte IN_OK=0;
 	
-	private static final byte OUT_HB_AVAILABLE_OFFSET=6;
-	private static final byte OUT_HB_FINE_OFFSET=5;
-	private static final byte OUT_HB_TR_OFFSET=4;
-	private static final byte OUT_HB_VERIFY_OFFSET=3;
+	private static final byte OUT_HB_SLOT_OFFSET=5;
+	private static final byte OUT_HB_STATE_OFFSET=3;
 	
 	public static void main(String[] args) {
-		String s;
+		LoginInfo li;
 		try {
 
 			while(true) {
 
-				s=login();
+				li=login();
 				
-				System.out.println("In sys.");
+				System.out.println("In sys.\r\n"+li);
+				
+				byte b=1;
+				while(b!=IN_OK&&b!=IN_CANCEL) {
+					b=io.getFrom();
+				}
+				if(b==IN_OK) {
+					if(li.isToTake()) {
+						new TakeContract(li.getUserID(),stationID,li.getTargetSlot()).takeScooter();;
+					}
+					else {
+						new ReturnContract(li.getUserID(),stationID,li.getTargetSlot()).returnScooter();;
+					}
+				}
 			}
 		}
 		catch(Exception e) {
@@ -35,70 +46,78 @@ public class MicroprocessorEntry {
 		}
 	}
 
-	private static String login() {
-		String s;
+	private static LoginInfo login() {
+		String uid;
+		boolean totake=false;
+		int sid=-1;
 		DataBase db=DataBase.getCurrent();
 		Boolean inputFinishFlag;
 		Boolean inSysFlag;
 		do {
 			inputFinishFlag=false;
-			s="";
+			uid="";
 			while(!inputFinishFlag) {
 				byte b=io.getFrom();
 				if(b==IN_OK) {
 					inputFinishFlag=true;
 				}
 				else if(b==IN_CANCEL) {
-					s=s.substring(0, s.length()-1);
+					uid=uid.substring(0, uid.length()-1);
 				}
 				else {
-					s=s+new String(new char[] {(char)b});
+					uid=uid+new String(new char[] {(char)b});
 				}
 			}
 			inSysFlag=false;
 			byte inputNotifier=0;
 			boolean foundSlot=false;
-			if(User.checkQMID(s)&&db.userExists(s)) {
-				if(!db.isUserTaking(s)) {
-					if(db.isUnpaid(s)||db.isTodayUsageOverFlow(s)) {
-						inputNotifier+= 1<<OUT_HB_FINE_OFFSET;
+			if(User.checkQMID(uid)&&db.userExists(uid)) {
+				if(!db.isUserTaking(uid)) {
+					totake=true;
+					if(db.isUnpaid(uid)||db.isTodayUsageOverFlow(uid)) {
+						inputNotifier+= 3<<OUT_HB_STATE_OFFSET;
 					}
 					else {
+						inputNotifier+= 1<<OUT_HB_STATE_OFFSET;
 						boolean[] states=db.getStationState(stationID);
 						for(int i=0;i<Station.SCOOTERCOUNT;i++) {
 							if(states[i]) {
 								inputNotifier+=i;
+								sid=i;
 								foundSlot=true;
 								break;
 							}
 						}
-						if(foundSlot) {
-							inputNotifier+= 1<<OUT_HB_AVAILABLE_OFFSET;
+						if(!foundSlot) {
+							inputNotifier+= 1<<OUT_HB_SLOT_OFFSET;
+						}
+						else {
 							inSysFlag=true;
 						}
 					}
 				}
 				else {
-					inputNotifier+= 1<<OUT_HB_TR_OFFSET;
+					totake=false;
+					inputNotifier+= 2<<OUT_HB_STATE_OFFSET;
 					boolean[] states=db.getStationState(stationID);
 					for(int i=0;i<Station.SCOOTERCOUNT;i++) {
 						if(!states[i]) {
 							inputNotifier+=i;
+							sid=i;
 							foundSlot=true;
 							break;
 						}
 					}
-					if(foundSlot) {
-						inputNotifier+= 1<<OUT_HB_AVAILABLE_OFFSET;
+					if(!foundSlot) {
+						inputNotifier+= 1<<OUT_HB_SLOT_OFFSET;
+					}
+					else {
 						inSysFlag=true;
 					}
 				}
 			}
-			else {
-				inputNotifier+= 1<<OUT_HB_VERIFY_OFFSET;
-			}
 			io.setTo(inputNotifier);
 		}while(!inSysFlag);
-		return s;
+		return new LoginInfo(uid,totake,sid);
 	}
 }
