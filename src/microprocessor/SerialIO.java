@@ -35,7 +35,9 @@ public class SerialIO extends IOManager{
 	public byte getFrom() {
 		try {
             while (serIS.available() == 0);
-            return (byte)serIS.read();
+            byte b=(byte)serIS.read();
+            System.out.println(b);
+            return b;
 		}
 		catch(Exception e){
             e.printStackTrace(System.out);
@@ -47,6 +49,7 @@ public class SerialIO extends IOManager{
 	public void setTo(byte value) {
 		try {
 			serOS.write(value);
+			System.out.println(value);
 		}
 		catch(Exception e){
             e.printStackTrace(System.out);

@@ -11,8 +11,8 @@ public class MicroprocessorEntry {
 	private static final byte IN_CANCEL=-1;
 	private static final byte IN_OK=0;
 	
-	private static final byte OUT_HB_SLOT_OFFSET=5;
-	private static final byte OUT_HB_STATE_OFFSET=3;
+	private static final byte OUT_HB_SLOT_OFFSET=6;
+	private static final byte OUT_HB_STATE_OFFSET=4;
 	
 	public static void main(String[] args) {
 		LoginInfo li;
