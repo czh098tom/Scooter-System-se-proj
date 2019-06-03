@@ -5,6 +5,8 @@ import java.util.*;
 import gnu.io.*; 
 
 public class SerialIO extends IOManager{
+	
+	public static int COMModifier=3;
 
 	private CommPortIdentifier portId;
 	private CommPort com;
@@ -16,7 +18,7 @@ public class SerialIO extends IOManager{
 	public SerialIO() {
         try {
 			// TODO: identify the COM port from Windows' control panel
-            portId = CommPortIdentifier.getPortIdentifier("COM3");
+            portId = CommPortIdentifier.getPortIdentifier("COM"+COMModifier);
 
             com = portId.open("MCS51COM", 2000);
             ser = (SerialPort)com;

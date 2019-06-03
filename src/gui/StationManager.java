@@ -67,7 +67,7 @@ public class StationManager extends StateManager {
 			}
 		}
 		finally {
-			if(!modified) System.out.println("Station does not given ot does not exist."
+			if(!modified) System.out.println("Station does not given or does not exist."
 					+" Will enter Station 0 instead.");
 		}
 		StationManager dockStation0=new StationManager(id);

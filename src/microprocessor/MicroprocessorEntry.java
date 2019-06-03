@@ -15,6 +15,23 @@ public class MicroprocessorEntry {
 	private static final byte OUT_HB_STATE_OFFSET=4;
 	
 	public static void main(String[] args) {
+
+		boolean modified=false;
+		try {
+			if(args!=null&&args.length>1)
+			{
+				int tmp=Integer.parseInt(args[0]);
+				SerialIO.COMModifier=tmp;
+				tmp=Integer.parseInt(args[1]);
+				stationID=tmp;
+				modified=true;
+			}
+		}
+		finally {
+			if(!modified) System.out.println("Station and COM port does not given or is not valid."
+					+" Will enter Station 0 with COM 3 instead.");
+		}
+		
 		LoginInfo li;
 		try {
 
