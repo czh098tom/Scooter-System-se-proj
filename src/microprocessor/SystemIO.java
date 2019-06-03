@@ -14,5 +14,6 @@ public class SystemIO extends IOManager {
 		byte b=s.nextByte();
 		System.out.println(String.format("read byte: 0x%x/%d, char: %c", b, b, b));
 		return b;
+		//
 	}
 }

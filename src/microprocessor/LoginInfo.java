@@ -27,6 +27,6 @@ public class LoginInfo {
 		return "User ID: "+userID+"\r\n"
 				+(isToTake?"take":"return")+"\r\n"
 				+"Target slot: "+targetSlot+"\r\n";
-				
+				//
 	}
 }
